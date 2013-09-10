@@ -7,17 +7,9 @@
 
 package dracula;
 
-public class DraculaMove {
+public interface DraculaMove {
 
-   private String message;
+   public String getPlayAsString() ;
 
-   public String getMessage() {
-      return this.message;
-   }
-
-   public String getPlayAsString() {
-      //TODO: Implement me
-      if (1==1) throw new UnsupportedOperationException("Dracula Move not yet implemented");
-      return "";
-   }
+   public String getMessage();
 }

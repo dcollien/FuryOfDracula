@@ -10,7 +10,7 @@ package dracula;
 import dracula.DraculaMove;
 import dracula.PlayerEnum;
 
-public class Move extends DraculaMove {
+public class Move implements DraculaMove {
 
    private PlayerEnum player;
    private String asString;
@@ -34,6 +34,10 @@ public class Move extends DraculaMove {
    public Move(PlayerEnum player, Location location) {
       this.player = player;
       this.location = location;
+   }
+
+   public String getMessage() {
+       return "hallo there";
    }
 
    public Move(String s) {
@@ -68,17 +72,17 @@ public class Move extends DraculaMove {
 
    public String toString() {
       String result = "";
-      result += player.toString();
+      //result += player.toString();
       if (player.isDracula()) {
          result += location.toString();
-         result += "....";
+      //   result += "....";
       } else {
          result += location.toString();
-         if (wasTrapEncountered)          result += "T";
-         else if (wasVampireEncountered)  result += "V";
-         else if (wasDraculaFound)        result += "D";
-         else                             result += ".";
-         result += "...";
+      //   if (wasTrapEncountered)          result += "T";
+      //   else if (wasVampireEncountered)  result += "V";
+      //   else if (wasDraculaFound)        result += "D";
+      //   else                             result += ".";
+      //   result += "...";
       }
       return result;
    }

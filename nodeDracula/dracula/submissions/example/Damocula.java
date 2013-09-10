@@ -1,5 +1,6 @@
 /**
  * Written for COMP9024 2013s2 at UNSW Kensington.
+ *
  * @author dstacey@cse.unsw.edu.au
  *
  *  DO NOT Provide to students
@@ -35,6 +36,9 @@ public class Damocula implements Dracula, Player {
    public DraculaMove decideMove() {
       //TODO(damonkey): Stop being lazy and actually implement a decent implementation.
       //                Or at least choose randomly... <.<
+      if (loc == null) {
+         loc = Location.CD;
+      }
       List<Location> possibleMoves = loc.adjacentCities();
       possibleMoves.addAll(loc.seaAdjacentCities());
 
