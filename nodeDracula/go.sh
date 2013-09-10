@@ -18,9 +18,9 @@ if [ $# -eq 1 ]; then
 
    echo "\tCollecting dracs from openlearning and leaving them in $drac_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
-   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example   
+   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example
 
-   echo "\tCopying them to directory to be compiled/modified"   
+   echo "\tCopying them to directory to be compiled/modified"
    cp -r $drac_sub_round_dir/* $drac_comp_round_dir/.
 
    echo ""
@@ -31,14 +31,14 @@ if [ $# -eq 1 ]; then
    mkdir $hunt_sub_round_dir
    rm -rf $hunt_comp_round_dir
    mkdir $hunt_comp_round_dir
- 
+
    echo "\tCollecting hunters from openlearning and leaving them in $hunt_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
    cp -r $base_dir/hunter/submissions/example $hunt_sub_round_dir/example
-   echo "\tCopying them to directory to be compiled/modified"   
+   echo "\tCopying them to directory to be compiled/modified"
    cp -r $hunt_sub_round_dir/* $hunt_comp_round_dir/.
 
-else 
+else
    echo "\tNo round name.. quitting"
    exit
 fi
@@ -49,10 +49,10 @@ echo "Environment setup"
 echo "Compilation starting..."
 echo "\tCompiling dracs..."
 cd $drac_comp_round_dir
- 
+
 for file in `ls`; do
    cd $file
-   #TODO(damonkey): copy in base files to each directory, overwriting 
+   #TODO(damonkey): copy in base files to each directory, overwriting
    #                the files that are labelled DO NOT EDIT
 
    sed "s/dracula/$file/g" -i *.java
@@ -63,7 +63,7 @@ for file in `ls`; do
    javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of dracs.."
-   cd $drac_comp_round_dir 
+   cd $drac_comp_round_dir
 done
 cd ../..
 
@@ -81,7 +81,7 @@ for file in `ls`; do
    cd $hunt_comp_round_dir
 done
 cd $base_dir
-   
+
 
 
 echo "Compilation complete."
@@ -89,14 +89,20 @@ echo "Running Games..."
 if [ $# -eq 1 ]; then
    mkdir $round_name
    cp -r $drac_comp_round_dir/* $round_name/.
-   cp $hunt_comp_round_dir/*.elf  $round_name/.   
+   cp $hunt_comp_round_dir/*.elf  $round_name/.
 
+
+   ls -d | sort -R
    cd $round_name
-   drac="example"
-   hunter0="$PWD/hunter_example.elf"
-   hunter1="$PWD/hunter_example.elf"
-   hunter2="$PWD/hunter_example.elf"
-   hunter3="$PWD/hunter_example.elf"
+   #TODO(damonkey): make this more evenly distributed
+   #Grab the current files in the directory, decide if they are dracs or hunters
+   #        then shuffle them with sort -R
+   #        and grab the first one from the shuffled list
+   drac="`ls | grep -v ".elf$" | sort -R | tail -n 1`"
+   hunter0="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
+   hunter1="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
+   hunter2="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
+   hunter3="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
    nodejs ../game_runner/runGame.js \
             "$hunter0" \
             "$hunter1" \
