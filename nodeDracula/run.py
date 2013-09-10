@@ -11,12 +11,12 @@ def runGame(  ):
    print sys.argv
    runArgs = [
 	  "nodejs",
-	  "../game_runner/runGame.js",
-	  str(sys.argv[0]),
-	  str(sys.argv[1]),
-	  str(sys.argv[2]),
-	  str(sys.argv[3]),
-	  str(sys.argv[4])
+	  "game_runner/runGame.js",
+	  "hunter/hunters/mrDrunk/mrDrunk",
+	  "hunter/hunters/mrDrunk/mrDrunk",
+	  "hunter/hunters/mrDrunk/mrDrunk",
+	  "hunter/hunters/mrDrunk/mrDrunk",
+          ""
    ]
 
    stdin = ""

@@ -58,11 +58,11 @@ for file in `ls`; do
    sed "s/dracula/$file/g" -i *.java
 
    rm -rf *.class
-   echo "\t\tCompiling $file..." 
-   for f in `find . | grep *.java`; do
-      javac "$f" | sed "s/^/\t\t\t/g";
-   done
+   echo "\t\tCompiling $file..."
+   echo "\t\tjavac `find . | grep ".java$" | paste -s`"
+   javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
    echo "\t\tCompilation for $file completed."
+   echo "\t\tMoving it to the list of dracs.."
    cd $drac_comp_round_dir 
 done
 cd ../..
@@ -93,10 +93,10 @@ if [ $# -eq 1 ]; then
 
    cd $round_name
    drac="example"
-   hunter0="hunter_example.elf"
-   hunter1="hunter_example.elf"
-   hunter2="hunter_example.elf"
-   hunter3="hunter_example.elf"
+   hunter0="$PWD/hunter_example.elf"
+   hunter1="$PWD/hunter_example.elf"
+   hunter2="$PWD/hunter_example.elf"
+   hunter3="$PWD/hunter_example.elf"
    nodejs ../game_runner/runGame.js \
             "$hunter0" \
             "$hunter1" \
