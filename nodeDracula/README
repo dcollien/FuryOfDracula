@@ -1,0 +1,14 @@
+REQUIREMENTS:
+	java
+	nodejs
+	bash
+	javac
+	gcc
+	janssen c lib.
+
+go.sh -- runs a round. Name given as first argument
+
+rm_round.sh -- deletes all results of a round. Name given as first argument
+
+
+
