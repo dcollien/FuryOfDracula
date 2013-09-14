@@ -35,6 +35,13 @@ HunterView.c implement this before 10 January
 hunter.c write your AI here
 **hunter.h** this specifies the functions you need to include in your AI
 **game.h** some functions, constants and types we've provided for you to use
+**hunter.h** this specifies the functions you need to include in your AI
+**game.h** some functions, constants
+**game.c** The code that will in the end run your game. You do not need to compile or know anything about this. But it may interest you. Be warned, it uses a json library not default and requires different things to run.
+
+Makefile -- This should compile all these files together and produce a binary called: "myPlayer" (no quotation marks).
+            You will require the -ljansson flag for the game.c to work. We do not expect you to compile with this file, but are providing you access to it so you may add extra files (maybe for some adts) to your compilation suite.
+            TODO(damonkey): Test that cse has the ljanson libraries..
 
 Check for updated file versions from time to time in case errors are discovered - such cases will be announced on the stop press section of the course homepage.
 
