@@ -92,23 +92,29 @@ if [ $# -eq 1 ]; then
    cp $hunt_comp_round_dir/*.elf  $round_name/.
 
 
-   ls -d | sort -R
    cd $round_name
-   #TODO(damonkey): make this more evenly distributed
-   #Grab the current files in the directory, decide if they are dracs or hunters
-   #        then shuffle them with sort -R
-   #        and grab the first one from the shuffled list
-   drac="`ls | grep -v ".elf$" | sort -R | tail -n 1`"
-   hunter0="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
-   hunter1="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
-   hunter2="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
-   hunter3="$PWD/`ls | grep ".elf$" | sort -R | tail -n 1`"
-   nodejs ../game_runner/runGame.js \
-            "$hunter0" \
-            "$hunter1" \
-            "$hunter2" \
-            "$hunter3" \
-            "java -ea $drac.DraculaRunner" \
-                     | sed "s/^/\t/g"
+   mkdir "logs";
+   for (( $i=0; $i<20; $i++ )); do
+      ls -d | sort -R
+      #TODO(damonkey): make this more evenly distributed
+      #Grab the current files in the directory, decide if they are dracs or hunters
+      #        then shuffle them with sort -R
+      #        and grab the first one from the shuffled list
+      drac="`ls | grep -v ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+      hunter0="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+      hunter1="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+      hunter2="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+      hunter3="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+
+      log_file="logs/$drac_.log";
+      nodejs ../game_runner/runGame.js \
+               "$PWD/$hunter0" \
+               "$PWD/$hunter1" \
+               "$PWD/$hunter2" \
+               "$PWD/$hunter3" \
+               "java -ea $drac.DraculaRunner" \
+                        | sed "s/^/\t/g" > $log_file
+
+   done;
    cd ..
 fi

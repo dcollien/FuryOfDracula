@@ -1,0 +1,56 @@
+==Overview==
+In this assignment you will work in pairs, and in collaboration with the rest of the class, to evade and stalk the clumsy first year undergraduates. They seem to think that you are creatures of the night, vampires. Draculas. You will be writing an AI to evade them as they hunt you across europe.
+
+Inspired by the pioneering detective work of Dr Seward you will use modern scientific principles of rational investigation and analysis to combat these young children.  How can they can withstand the power of science and rationality? Let alone a pack of hungry night dwellers learning the art of programming!
+
+WARNING: EVERY STUDENT MUST SUBMIT CODE. YOU MAY WORK IN PAIRS BUT BOTH IN A PAIR MUST SUBMIT A DRACULA.
+         This does not mean that you should do it on your own. This project is as much about graphs as it is about learning how to share code between each other, and how to work in a group.
+         So pair up with someone who seems to want to get a comparable mark as you and who wants to put as much time and effort into this project as you. Talk to your tutor if this is a problem.
+
+==What you are to do==
+
+1. Read the spec.
+2. Read the files you are being supplied.
+3. Work out with your partner how your code is going to be run.
+4. Implement a dracula. Think about how this is better represented in OO.
+5. Submit.
+6. Improve it. Improve it. Improve it.
+7. ???
+8. Profit.
+
+==Project Information and supplied code files==
+The Game Rules
+Playing the game
+The Data Format
+The Official Map
+Download the files below - don't alter any of the files which are marked with stars.
+
+Dracula.java  - DO NOT MODIFY. This is the interface that we will use to interact with ur drac.
+DraculaMove.java - DO NOT MODIFY. This is the interface we will use to get the result of your move.
+DraculaRunner.java - DO NOT MODIFY. This is the code that will in the end run your dracula.
+                                 Note that this disables stdout, and enables it to print your move.
+                                 In any submission DO NOT PRINT inside your dracula. You will be deemed a cheater and will be disqualified from any rounds.
+
+                                 We provide this to you only so that you can test you solution and see how the pieces fit together.
+PlayerFactory.java - MODIFY ME. This is a factory for draculas, every game will have exactly one.
+                                 You must make this give us a dracula that works, and that evades the pesky first years.
+
+Check for updated file versions from time to time in case errors are discovered - such cases will be announced on the stop press section of the course homepage.
+
+===How it is assessed==
+Your ADT implementation needs to be correct and have effective unit tests.
+Your dracula needs to participate in hunts and evade the first years. Assessed by how many points a dracula has earned over all official hunts (starting date TBA).
+
+Note that the performance marks for this project are earned during the project period.
+
+This is not an assignment where you submit something at the end which is then marked.  Most of the marks are for how you perform in the hunts, so if you don't enter the hunts then you won't get those marks.  The best plan is to submit something simple which works very quickly, and then gradually improve it over the duration of the project period.
+
+Starting [DATE TO BE ANNOUNCED] any AIs which have been submitted will be entered in a series of games (aka hunts) run roughly every second night.
+
+Your team's Dracula will only be entered in a hunt if it makes no illegal moves.  If it makes an illegal move during a hunt it will score no points for that hunt, and may not participate in any other hunts that night.
+
+Dracs are ranked by the sum of the scores they have earned over all their hunts.  The top scoring Dracula will be awarded full performance marks, a dumb benchmark Dracula we create will score 4 performance marks.  All other Hunter AIs will receive a mark determined by linear interpolation between the scores of these two Draculas.
+
+We'll run trial hunts before [DATE TO BE ANNOUNCED] so you can practice and get your code ready before the hunts which are for marks begin.  So make sure you submit a Drac before the trial hunts commence.
+
+The early hunts are likely to seem to run in darkness. The first years will be clumsy, they will not have smart hunters. Early submissions are key to getting more points (and therefore marks). Plus it makes you sound like you have superior time management as well ;).

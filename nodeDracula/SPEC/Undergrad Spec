@@ -1,0 +1,68 @@
+==Overview==
+In this assignment you will work in pairs, and in collaboration with the rest of the class, to hunt down and defeat Dracula (Richard Buckland) and his evil minions (The COMP9024 night class students).
+
+Inspired by the pioneering detective work of Dr Seward you will use modern scientific principles of rational investigation and analysis to combat these dark forces.  How can they can withstand the light of science and rationality?
+
+WARNING: EVERY STUDENT MUST SUBMIT CODE. YOU MAY WORK IN PAIRS BUT BOTH IN A PAIR MUST SUBMIT A HUNTER.
+         This does not mean that you should do it on your own. This project is as much about graphs as it is about learning how to share code between each other, and how to work in a group.
+         So pair up with someone who seems to want to get a comparable mark as you and who wants to put as much time and effort into this project as you. Talk to your tutor if this is a problem.
+
+
+==What you and your partner are to do==
+1. Read the rules of the game and practice playing it with your partner so you develop a deep understanding of the problem before attempting to solve it.
+
+2. In your first 2013 tutorial decide what information you would want to know about the game state if you were a hunter; and then ensure that the interface you and your tutorial designs for the HunterView ADT during that tutorial provides you with that information.
+
+3. Implement the HunterView ADT interface your tutorial group designed, including unit tests to check that the ADT implements the interface correctly.
+
+4. Write a Hunter AI which uses the HunterView ADT to decide where to move next, and enter your Hunter in the trials and hunts to pit your hunter against Dracula and earn project performance marks.  The sooner you enter it the more performance marks you can earn.  Note that Dracula is much less diabolical and so easier to catch when hunted during daylight hours (ie the earlier hunts).
+
+How it fits together
+The key (and fun) bit of the assignment is that you and your partner will write a hunter AI (''step 4. above'').  This is simply a hunter.c file which implements the hunter.h interface.
+
+The AI learns about the game state from querying a HunterView ADT which is passed to it.  So you'll need to have designed (''step 2. above'') and implemented (''step 3. above'') this ADT before you can write your player and start hunting Dracula and earning performance marks.
+
+
+==Project Information and supplied code files==
+The Game Rules
+Playing the game
+The Data Format
+The Official Map
+Download the files below - don't alter any of the files which are marked with stars.
+
+HunterView.h complete this with your tutorial class in the first tutorial of 2012
+HunterView.c implement this before 10 January
+hunter.c write your AI here
+**hunter.h** this specifies the functions you need to include in your AI
+**game.h** some functions, constants and types we've provided for you to use
+
+Check for updated file versions from time to time in case errors are discovered - such cases will be announced on the stop press section of the course homepage.
+
+===How it is assessed==
+Your ADT implementation needs to be correct and have effective unit tests.
+Your hunter needs to participate in hunts and catch Dracula.  Assessed by how many points a hunter has earned over all official hunts (starting date TBA).
+
+Note that the performance marks for this project are earned during the project period.
+
+This is not an assignment where you submit something at the end which is then marked.  Most of the marks are for how you perform in the hunts, so if you don't enter the hunts then you won't get those marks.  The best plan is to submit something simple which works very quickly, and then gradually improve it over the duration of the project period.
+
+Starting [DATE TO BE ANNOUNCED] any AIs which have been submitted will be entered in a series of games (aka hunts) run roughly every second night. You may submit in the first tutorial of 2012
+HunterView.c implement this before 10 January
+hunter.c write your AI here as often as you wish.  After  in the first tutorial of 2012
+HunterView.c implement this before 10 January
+hunter.c write your AI here in the first tutorial of 2012
+HunterView.c implement this before 10 January
+hunter.c write your AI hereeach hunt you will be able to view the logs of what happened and so can improve and resubmit your hunter AI (or ADT files) for future hunts.
+
+Your team's hunter AI will only be entered in a hunt if it makes no illegal moves.  If it makes an illegal move during a hunt it will score no points for that hunt, and may not participate in any other hunts that night.
+
+Hunter AIs are ranked by the sum of the scores they have earned over all their hunts.  The top scoring Hunter will be awarded full performance marks, a dumb benchmark Hunter we create will score 4 performance marks.  All other Hunter AIs will receive a mark determined by linear interpolation between the scores of these two Hunters.
+
+We'll run trial hunts before [Date to be announced] so you can practice and get your code ready before the hunts which are for marks begin.  So make sure you submit a Hunter AI before the trial hunts commence.
+
+
+The early hunts are will likely run during daylight. And the Richard and his postgraduates won't have time to train thier draculas to evade you as easily. As we close in on the term, this situation will likely change (Mwaahahaha). Early participation is much more likely to result in better marks. So start now!
+
+==Extra information==
+
+As a challenge to the more inclined students, we have no gui for games run. There have been many attempts in previous years to make a suitable one, but its probably worth your while sharing one with the rest of the cohort. Any person or group of persons who writes the best GUI that reads a log of the game and plays it back (or even lets a player step through the game), will get bonus points. :) (Note only one student or group of students will get this prize. And it will be allocated by the tutors. Your hunter AI is far more important so put this first, especially if you are low on time or struggling with your coursework).

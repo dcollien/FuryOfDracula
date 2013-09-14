@@ -27,11 +27,11 @@ public class DraculaRunner {
 
    public static void main (String[] args) {
 
-      boolean failed = false;
+      Exception failed = null;
 
       //disable stdout
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      System.setOut(new PrintStream(baos));
+//      System.setOut(new PrintStream(baos));
 
       // Read in state from stdin
       String pastPlays = "";
@@ -40,7 +40,7 @@ public class DraculaRunner {
       // NOTE:
           // Input is in the format : { pastPlays: '%s', messages: [%s,%s,%s...] }
           // Dodgy json parsing without a json library to ease student compilation problems
-          // TODO(damonkey): Decide if to fix this, or leave it as it is.
+          //
 
       try {
          BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
@@ -51,8 +51,7 @@ public class DraculaRunner {
          messages[1] = messages[1].substring("messages\":[\"".length());
          messages[messages.length-1] = messages[messages.length-1].substring(0, messages[messages.length-1].length() - "]}\"".length());
       } catch (IOException e) {
-         failed = true;
-         System.out.println(e);
+         failed = e;
       }
 
       //Run user code and kill it if it takes too long.
@@ -62,30 +61,30 @@ public class DraculaRunner {
       try {
          m = executor.submit(d).get(15, TimeUnit.MINUTES);
       } catch (java.lang.InterruptedException i) {
-         failed = true;
-         System.out.println(i);
+         failed = i;
       } catch (java.util.concurrent.ExecutionException e) {
-         failed = true;
-         System.out.println(e);
+         failed = e;
       } catch (java.util.concurrent.TimeoutException t) {
-         failed = true;
-         System.out.println(t);
+         failed = t;
       }
 
+      System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
       // Print the decided move.
-      if (!failed) {
+      if (failed == null) {
          //reset stdout
-         System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
-
-         //write out result to stdout
-         System.out.print("{" +
-                          "\"move\": \"" + m.getPlayAsString().replace("\"","") + "\", " +
-                          "\"message\": \"" + m.getMessage().replace("\"","") + "\"," +
-                          "\"timer\": \"" + 1 + "\"" +
-                          "}");
+         String result = "";
+         result += "{";
+         result += "\"move\": \"" + m.getPlayAsString().replace("\"","") + "\", ";
+         result += "\"message\": \"" + m.getMessage().replace("\"","") + "\"," ;
+         result += "\"timer\": \"" + 1 + "\"";
+         result += "}";
+         System.out.println(result);
+         executor.shutdown();
+      } else {
+         System.err.println("FAILED");
+         failed.printStackTrace(System.err);
       }
 
-      executor.shutdown();
    }
 }
 
