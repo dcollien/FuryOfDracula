@@ -1,0 +1,164 @@
+== Past Plays ==
+//newHunterView()// creates a new hunter view to summarise the current state of the game from the hunters' point of view.  It takes in two parameters, one of which is //pastPlays//.
+
+//pastPlays// is a string representing everything that the hunters have observed happening in the game so far.  It lists all the //plays// made in the game so far by all players (including Dracula) from the earliest turn (at the start of the string) to most recent turn (at the end of the string).
+
+Each play is 7 characters long (described below) followed by a space, and represents what happened during one turn of the game.  Each play begins with a single character representing the player whose turn it was:
+
+{{{
+   G = Lord Godalming (turns 1, 6, ...)
+   S = Dr. Seward (turns 2, 7, ...)
+   H = Van Helsing (turns 3, 8, ...)
+   M = Mina Harker (turns 4, 9, ...)
+   D = Dracula (turns 5, 10, ...)
+}}}
+
+ For each hunter play (starting with G, S, H or M), the player character is immediately followed by 6 characters:
+
+* 2 uppercase characters representing the new location of the hunter. [- (see below for location codes) -]
+* 4 letters representing, in order, the encounters that occurred:
+** one 'T' for each Trap encountered (and disarmed)
+** 'V' if an immature Vampire was encountered (and vanquished)
+** 'D' if, finally, Dracula was confronted
+** then '.'s for the remaining 0..4 characters
+
+For each Dracula play (starting with D), the player character is  immediately followed by 6 characters:
+
+* 2 uppercase characters representing the new location of Dracula
+
+{{{
+C? = City move (unknown city)
+S? = Sea move (unknown sea)
+HI = Hide move, if we have discovered it was a hide move
+Dn = Double Back move: D followed by a single character
+     number (n) from 1-5 specifying the position in his
+     trail to which Dracula is doubling back
+      (eg 1 means staying in his most recent location,
+          5 means returning to his location 5 moves ago)
+TP = Teleport to Castle Dracula
+or
+any valid location code, if we know Dracula's location
+eg via a research or confrontation
+}}}
+
+* 2 characters representing the encounter Dracula placed:
+** 'T' if a Trap was placed, otherwise '.'
+** 'V' if an immature Vampire was placed, otherwise '.'
+* 1 character representing the action phase of Dracula's turn:
+
+{{{
+     'M' if a Trap has left the trail (malfunctions due to old age), and vanishes without a trace. (yay!)
+     'V' if a Vampire has matured. (eek!)
+     '.' = Nothing has occurred (eg early in game)
+}}}
+
+* a single '.' character
+
+=== Sample pastPlays strings ===
+After the first 5 turns (ie at the end of Round 0):
+
+{{{
+"GBE.... SBR.... HLO.... MCA.... DC?.V.."
+}}}
+
+same game, after the 6th turn (ie after the first turn of Round 1):\\
+[-notice Lord Godelming has stumbled onto Dracula's location-]
+
+{{{
+"GBE.... SBR.... HLO.... MCA.... DSJ.V.. GSJVD.."
+}}}
+
+== Location Codes ==
+Each city/sea has a special 2 character identification code.  These are listed below:
+
+==== Cities ====
+{{{
+|| AL || Alicante ||
+|| AM || Amsterdam ||
+|| AT || Athens ||
+|| BA || Barcelona ||
+|| BI || Bari ||
+|| BE || Belgrade ||
+|| BR || Berlin ||
+|| BO || Bordeaux ||
+|| BU || Brussels ||
+|| BC || Bucharest ||
+|| BD || Budapest ||
+|| CA || Cadiz ||
+|| CG || Cagliari ||
+|| CD || Castle Dracula ||
+|| CF || Clermont Ferrand ||
+|| CO || Cologne ||
+|| CN || Constanta ||
+|| DU || Dublin ||
+|| ED || Edinburgh ||
+|| FL || Florence ||
+|| FR || Frankfurt ||
+|| GA || Galatz ||
+|| GW || Galway ||
+|| GE || Geneva ||
+|| GO || Genoa ||
+|| GR || Granada ||
+|| HA || Hamburg ||
+|| JM || St Joseph & St Mary's ||
+|| KL || Klausenburg ||
+|| LE || Le Havre ||
+|| LI || Leipzig ||
+|| LS || Lisbon ||
+|| LV || Liverpool ||
+|| LO || London ||
+|| MA || Madrid ||
+|| MN || Manchester ||
+|| MR || Marseilles ||
+|| MI || Milan ||
+|| MU || Munich ||
+|| NA || Nantes ||
+|| NP || Naples ||
+|| NU || Nuremburg ||
+|| PA || Paris ||
+|| PL || Plymouth ||
+|| PR || Prague ||
+|| RO || Rome ||
+|| SA || Salonica ||
+|| SN || Santander ||
+|| SR || Saragossa ||
+|| SJ || Sarajevo ||
+|| SO || Sofia ||
+|| ST || Strasbourg ||
+|| SW || Swansea ||
+|| SZ || Szeged ||
+|| TO || Toulouse ||
+|| VA || Valona ||
+|| VR || Varna ||
+|| VE || Venice ||
+|| VI || Vienna ||
+|| ZA || Zagreb ||
+|| ZU || Zurich ||
+}}}
+
+==== Seas ====
+{{{
+|| NS || North Sea ||
+|| EC || English Channel ||
+|| IS || Irish Sea ||
+|| AO || Atlantic Ocean ||
+|| BB || Bay of Biscay ||
+|| MS || Mediterranean Sea ||
+|| TS || Tyrrhenian Sea ||
+|| IO || Ionian Sea ||
+|| AS || Adriatic Sea ||
+|| BS || Black Sea ||
+}}}
+
+----
+{{{
+"JM", "AL", "AM", "AT", "BA", "BI", "BE", "BR", "BO", "BU",
+"BC", "BD", "CA", "CG", "CD", "CF", "CO", "CN", "DU", "ED",
+"FL", "FR", "GA", "GW", "GE", "GO", "GR", "HA", "KL", "LE",
+"LI", "LS", "LV", "LO", "MA", "MN", "MR", "MI", "MU", "NA",
+"NP", "NU", "PA", "PL", "PR", "RO", "SA", "SN", "SR", "SJ",
+"SO", "ST", "SW", "SZ", "TO", "VA", "VR", "VE", "VI", "ZA",
+"ZU",
+"NS", "EC", "IS", "AO", "BB", "MS", "TS", "IO", "AS", "BS"
+}}}
+
