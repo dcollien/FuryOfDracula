@@ -11,6 +11,6 @@ import dracula.DraculaMove;
 
 public interface Dracula {
 
-   public DraculaMove decideMove(DraculaView v);
+   public DraculaMove decideMove();
 
 }
