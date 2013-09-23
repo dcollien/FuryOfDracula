@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata>
+	<assets id="godalming_assets">
+		<asset type="image" code="player_icon" path="resources/icon_player_godalming.png" />
+		<asset type="image" code="player_sea_icon" path="resources/icon_player_sea_godalming.png" />
+		<asset type="image" code="profile" path="resources/profile_godalming.png" />
+	</assets>
+	<assets id="seward_assets">
+		<asset type="image" code="player_icon" path="resources/icon_player_seward.png" />
+		<asset type="image" code="player_sea_icon" path="resources/icon_player_sea_seward.png" />
+		<asset type="image" code="profile" path="resources/profile_seward.png" />
+	</assets>
+	<assets id="helsing_assets">
+		<asset type="image" code="player_icon" path="resources/icon_player_helsing.png" />
+		<asset type="image" code="player_sea_icon" path="resources/icon_player_sea_helsing.png" />
+		<asset type="image" code="profile" path="resources/profile_helsing.png" />
+	</assets>
+	<assets id="harker_assets">
+		<asset type="image" code="player_icon" path="resources/icon_player_harker.png" />
+		<asset type="image" code="player_sea_icon" path="resources/icon_player_sea_harker.png" />
+		<asset type="image" code="profile" path="resources/profile_harker.png" />
+	</assets>
+	<assets id="dracula_assets">
+		<asset type="image" code="player_icon" path="resources/icon_player_dracula.png" />
+		<asset type="image" code="player_sea_icon" path="resources/icon_player_dracula.png" />
+		<asset type="image" code="profile" path="resources/profile_dracula.png" />
+	</assets>
+	<players>
+		<player name="Lord Godalming" assets="godalming_assets" />
+		<player name="Dr. Seward" assets="seward_assets" />
+		<player name="Van Helsing" assets="helsing_assets" />
+		<player name="Mina Harker" assets="harker_assets" />
+		<player name="Count Dracula" assets="dracula_assets" />
+	</players>
+	<encounters>
+	   <encounter name="Minion (target: Lord Godalming)" />
+      <encounter name="Minion (target: Dr. Seward)" />
+      <encounter name="Minion (target: Van Helsing)" />
+      <encounter name="Minion (target: Mina Harker)" />
+      <encounter name="Vampire" />
+      <encounter name="Dracula" />
+	</encounters>
+</gamedata>

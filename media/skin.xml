@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata>
+	<skin id="loading_screen">
+		<!-- main images for loading screen -->
+		<texture name="background" src="splash_background.png" />
+		<texture name="window" src="splash_loading.png" />
+		
+		<!-- progress bar rectangle relative to loading_window -->
+		<rect name="progress" x="102" y="303" width="303" height="12" />
+		<!-- overlay image for the incomplete part of the progress bar -->
+		<texture name="progress" src="loading_overlay.png" />
+	</skin>
+	
+	<skin id="menu_screen">	
+		<!-- main images for local/network menu screen -->
+		<texture name="background" src="splash_background.png" />
+		<texture name="window" src="splash_screen.png" />
+		
+		<!-- text box details -->
+		<rect name="network_name" x="310" y="230" width="145" height="25" />
+		<rect name="network_password" x="310" y="270" width="145" height="25" />
+		
+		<!-- button details -->
+		<rect name="network_button" x="300" y="300" width="160" height="52" />
+		<rect name="local_button" x="40" y="300" width="160" height="52" />
+	</skin>
+	
+	<skin id="world">
+		<!-- size of the map (in pixels for images, same as world coords) -->
+		<vector name="dimensions" x="1823" y="1025" />
+		
+		<!-- offset of the map from the center of the non-hud screen,
+		     this defaults to being slightly lower so the map is completly
+		     visible under the encounter log bar when zoomed out -->
+		<vector name="offset" x="0" y="20" />
+	</skin>
+	
+	<skin id="hud">
+		<!-- font size, color and position for encounters in the console popup -->
+		<number name="console_big" value="16" />
+		<color name="console_big" r="1" g="1" b="1" a="1" />
+		<vector name="console_big" x="60" y="36" />
+	</skin>
+</gamedata>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamedata>
+	<vector-objects id="seas">
+		<polygon id="north_sea">
+			<vertex x="951.332" y="14.2096" />
+			<vertex x="841.208" y="24.8668" />
+			<vertex x="629.84" y="87.0337" />
+			<vertex x="571.226" y="156.305" />
+			<vertex x="612.078" y="236.234" />
+			<vertex x="638.721" y="305.506" />
+			<vertex x="697.336" y="317.94" />
+			<vertex x="750.622" y="365.897" />
+			<vertex x="1091.652" y="333.925" />
+			<vertex x="1358.08" y="234.458" />
+			<vertex x="1361.63" y="47.9574" />
+			<vertex x="1317.23" y="0" />
+			<vertex x="1107.638" y="0" />
+		</polygon>
+		<polygon id="english_channel">
+			<vertex x="750.622" y="365.897" />
+			<vertex x="697.336" y="317.94" />
+			<vertex x="638.721" y="305.506" />
+			<vertex x="481.333" y="382.667" />
+			<vertex x="490.667" y="458.667" />
+			<vertex x="700" y="517.333" />
+			<vertex x="821.333" y="420" />
+		</polygon>
+		<polygon id="irish_sea">
+			<vertex x="481.333" y="382.667" />
+			<vertex x="638.721" y="305.506" />
+			<vertex x="612.078" y="236.234" />
+			<vertex x="571.226" y="156.305" />
+			<vertex x="524" y="90.6667" />
+			<vertex x="446.667" y="162.667" />
+			<vertex x="376" y="298.667" />
+			<vertex x="481.333" y="382.667" />
+		</polygon>
+		<polygon id="atlantic_ocean">
+			<vertex x="381.333" y="1022.67" />
+			<vertex x="-204" y="1322.67" />
+			<vertex x="-201.33333" y="1.33333" />
+			<vertex x="-907.638" y="-1000" />
+			<vertex x="951.332" y="14.2096" />
+			<vertex x="841.208" y="24.8668" />
+			<vertex x="629.84" y="87.0337" />
+			<vertex x="571.226" y="156.305" />
+			<vertex x="524" y="90.6667" />
+			<vertex x="446.667" y="162.667" />
+			<vertex x="376" y="298.667" />
+			<vertex x="481.333" y="382.667" />
+			<vertex x="490.667" y="458.667" />
+			<vertex x="289.3333" y="650.667" />
+			<vertex x="488" y="760" />
+			<vertex x="366.667" y="940" />
+		</polygon>
+		<polygon id="bay_of_biscay">
+			<vertex x="490.667" y="458.667" />
+			<vertex x="700" y="517.333" />
+			<vertex x="621.333" y="704" />
+			<vertex x="488" y="760" />
+			<vertex x="289.3333" y="650.667" />
+			<vertex x="490.667" y="458.667" />
+		</polygon>
+		<polygon id="mediterranean_sea">
+			<vertex x="842.667" y="690.667" />
+			<vertex x="925.333" y="758.667" />
+			<vertex x="913.333" y="788" />
+			<vertex x="902.667" y="825.333" />
+			<vertex x="916" y="897.333" />
+			<vertex x="908" y="2018.67" />
+			<vertex x="361.333" y="960.67" />
+			<vertex x="351.333" y="100022.67" />
+			<vertex x="488" y="760" />
+			<vertex x="621.333" y="704" />
+			<vertex x="786.667" y="638.667" />
+		</polygon>
+		<polygon id="tyrrhenian_sea">
+			<vertex x="786.667" y="638.667" />
+			<vertex x="842.667" y="690.667" />
+			<vertex x="925.333" y="758.667" />
+			<vertex x="913.333" y="788" />
+			<vertex x="902.667" y="825.333" />
+			<vertex x="916" y="897.333" />
+			<vertex x="908" y="2018.67" />
+			<vertex x="1105.333" y="2021.33" />
+			<vertex x="1120" y="960" />
+			<vertex x="1128" y="940" />
+			<vertex x="1193.333" y="881.333" />
+			<vertex x="1170.667" y="812" />
+			<vertex x="1054.667" y="740" />
+			<vertex x="974.667" y="637.333" />
+			<vertex x="898.667" y="585.333" />
+		</polygon>
+		<polygon id="ionian_sea">
+			<vertex x="1105.333" y="2021.33" />
+			<vertex x="1120" y="960" />
+			<vertex x="1128" y="940" />
+			<vertex x="1193.333" y="881.333" />
+			<vertex x="1282.67" y="896" />
+			<vertex x="1334.67" y="833.333" />
+			<vertex x="1349.33" y="740" />
+			<vertex x="1477.33" y="733.333" />
+			<vertex x="1485.33" y="769.333" />
+			<vertex x="1575.67" y="841.333" />
+			<vertex x="1619.67" y="842.667" />
+			<vertex x="1619.67" y="2021.33" />
+		</polygon>
+		<polygon id="adriatic_sea">
+			<vertex x="974.667" y="637.333" />
+			<vertex x="1078.667" y="561.333" />
+			<vertex x="1349.33" y="740" />
+			<vertex x="1334.67" y="833.333" />
+			<vertex x="1282.67" y="896" />
+			<vertex x="1193.333" y="881.333" />
+			<vertex x="1170.667" y="812" />
+			<vertex x="1054.667" y="740" />
+			<vertex x="974.667" y="637.333" />
+		</polygon>
+		<polygon id="black_sea">
+			<vertex x="1819.6" y="484.502" />
+			<vertex x="1702.62" y="506.1" />
+			<vertex x="1612.62" y="592.49" />
+			<vertex x="1603.63" y="714.877" />
+			<vertex x="1666.62" y="756.272" />
+			<vertex x="1706.21" y="750.873" />
+			<vertex x="1825" y="691.479" />
+		</polygon>
+	</vector-objects>
+	
+	<seacenters>
+		<vertex x="745.298" y="151.983" id="center_north_sea"/>
+		<vertex x="569.736" y="378.058" id="center_english_channel"/>
+		<vertex x="435.201" y="300.802" id="center_irish_sea"/>
+		<vertex x="104.3135" y="499.8613" id="center_atlantic_ocean"/>
+		<vertex x="411.331" y="552.524" id="center_bay_of_biscay"/>
+		<vertex x="736.463" y="900.978" id="center_mediterranean_sea"/>
+		<vertex x="978.308" y="896.595" id="center_tyrrhenian_sea"/>
+		<vertex x="1282.34" y="943.169" id="center_ionian_sea"/>
+		<vertex x="1133.135" y="714.903" id="center_adriatic_sea"/>
+		<vertex x="1690.81" y="597.524" id="center_black_sea"/>
+	</seacenters>
+	
+	<seas id="sea_list">
+		<sea code="NS" polygon="north_sea" center="center_north_sea" name="North Sea" />
+		<sea code="EC" polygon="english_channel" center="center_english_channel" name="English Channel" />
+		<sea code="IS" polygon="irish_sea" center="center_irish_sea" name="Irish Sea" />
+		<sea code="AO" polygon="atlantic_ocean" center="center_atlantic_ocean" name="Atlantic Ocean" />
+		<sea code="BB" polygon="bay_of_biscay" center="center_bay_of_biscay" name="Bay of Biscay" />
+		<sea code="MS" polygon="mediterranean_sea" center="center_mediterranean_sea" name="Mediterranean Sea" />
+		<sea code="TS" polygon="tyrrhenian_sea" center="center_tyrrhenian_sea" name="Tyrrhenian Sea" />
+		<sea code="IO" polygon="ionian_sea" center="center_ionian_sea" name="Ionian Sea" />
+		<sea code="AS" polygon="adriatic_sea" center="center_adriatic_sea" name="Adriatic Sea" />
+		<sea code="BS" polygon="black_sea" center="center_black_sea" name="Black Sea" />
+	</seas>
+</gamedata>
