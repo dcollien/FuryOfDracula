@@ -119,7 +119,7 @@ module.exports = {
 	  var numPlayers = state.playSequence.length;
 	  var currentTurn = (state.round * numPlayers) + state.currentPlayerNumber;
 	  
-	  var playMaker = generatePlay.curry( state, playerType );
+	  var playMaker = generatePlay.partialApply( state, playerType );
 	  
 	  var pastPlays = list.make( Array, playMaker, currentTurn );
 	  

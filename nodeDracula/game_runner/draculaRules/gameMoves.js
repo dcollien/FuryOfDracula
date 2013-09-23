@@ -159,7 +159,7 @@ var canDraculaMove = function( state ) {
    }
    
    var candidateMoves = getCandidateDraculaMoves( state );
-   var isLegal = isLegalDraculaMove.curry( state );
+   var isLegal = isLegalDraculaMove.partialApply( state );
    
    // are any candidate moves legal
    return list.any( candidateMoves, isLegal );
@@ -183,7 +183,7 @@ var getValidDraculaMoves = function( state ) {
 	  var candidateMoves = getCandidateDraculaMoves( state );
 	  
 	  // is legal with this state
-	  var isLegal = isLegalDraculaMove.curry( state );
+	  var isLegal = isLegalDraculaMove.partialApply( state );
 	  
 	  moves = list.filter( candidateMoves, isLegal );
    }

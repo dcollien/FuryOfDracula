@@ -1,16 +1,6 @@
 var overloadFunction = function( functionObject ) {
 	// partially applies the specified arguments to a function, returning a new function
-	// TODO rename to partialApply and implement a better "curry":
-	/*
-		function curry(func) {
-			return function(arg) {
-				return func.partialApply(arg);
-			}
-		}
-		
-		and partialApply also returns a curried function if it is not finished
-	*/
-	functionObject.prototype.curry = function( ) {
+	functionObject.prototype.partialApply = function( ) {
 		var func = this;
 		var slice = Array.prototype.slice;
 		var appliedArgs = slice.call( arguments, 0 );
@@ -39,7 +29,7 @@ var overloadFunction = function( functionObject ) {
 e.g.
 
 var foo = function( a, b, c, d ) { console.log( a, b, c, d ); }
-var iAmA = foo.curry( "I", "am", "a" );
+var iAmA = foo.partialApply( "I", "am", "a" );
 iAmA( "Donkey" );
 -> I am a Donkey
 

@@ -770,7 +770,7 @@ var expandConnections = function( distance, connections, fromCode ) {
    
    if ( distance > 0 && adjacentLocations ) {
 	  // apply a lesser distance for the next hop
-	  var getNextConnections = expandConnections.curry( distance-1, connections );
+	  var getNextConnections = expandConnections.partialApply( distance-1, connections );
 	  
 	  // get the next list of connections for each of the adjacent locations
 	  var nextConnections = list.map( adjacentLocations, getNextConnections );

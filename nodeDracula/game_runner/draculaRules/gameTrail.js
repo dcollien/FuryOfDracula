@@ -56,7 +56,7 @@ var revealLocationInTrail = function( state, location ) {
    list.each( trailLocations, collectTrailIndices );
    
    // reveal each of these indices in the hunter knowledge
-   var revealInState = revealTrailItem.curry( state );
+   var revealInState = revealTrailItem.partialApply( state );
    list.each( trailIndices, revealInState );
 };
 
