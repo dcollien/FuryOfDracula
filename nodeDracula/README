@@ -5,6 +5,8 @@ REQUIREMENTS:
 	javac
 	gcc
 	janssen c lib.
+	kitchen sink
+
 
 go.sh -- runs a round. Name given as first argument
 
