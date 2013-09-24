@@ -1,0 +1,161 @@
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.dracula-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  position: relative;
+}
+
+.dracula-canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.dracula-sea {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 1823px;
+  height: 1025px;
+  background-image: url('media/underlay/seas-underlay.png');
+  background-repeat: no-repeat;
+}
+
+.dracula-map { 
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 1823px;
+  height: 1025px;
+  background-image: url('media/underlay/DracMap.png');
+  background-repeat: no-repeat;  
+}
+
+.dracula-cities { 
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 1823px;
+  height: 1025px;
+}
+
+.dracula-border {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1844px;
+  height: 1055px;
+  background-image: url('media/underlay/map-overlay.png');
+  background-repeat: no-repeat; 
+}
+
+.cdracula {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_cdracula.png');
+  background-repeat: no-repeat;
+}
+
+.hospital {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_hospital.png');
+  background-repeat: no-repeat;
+}
+
+.city_large {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_city_large.png');
+  background-repeat: no-repeat;
+}
+
+.city_small {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_city_small.png');
+  background-repeat: no-repeat;
+}
+
+.port_large {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_port_large.png');
+  background-repeat: no-repeat;
+}
+
+.port_small {
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-image: url('media/icon_port_small.png');
+  background-repeat: no-repeat;
+}
+
+.city_text {
+  font-family: serif;
+  color: #222;
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.2),
+    1px -1px 0 rgba(255, 255, 255, 0.2),
+    -1px 1px 0 rgba(255, 255, 255, 0.2),
+    1px 1px 0 rgba(255, 255, 255, 0.2);  
+  font-weight: bold;
+}
+
+.city_text.active {
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.5),
+    1px -1px 0 rgba(255, 255, 255, 0.5),
+    -1px 1px 0 rgba(255, 255, 255, 0.5),
+    1px 1px 0 rgba(255, 255, 255, 0.5); 
+}
+
+.dracula-player {
+  font-family: serif;
+  font-size: 12px;
+  padding-top: 8px;
+  color: transparent;
+  text-align: center;
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-size: 48px 48px;
+  background-repeat: no-repeat;  
+}
+
+.dracula-player:hover {
+  cursor: default;
+  color: #eee;  
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.5),
+    1px -1px 0 rgba(0, 0, 0, 0.5),
+    -1px 1px 0 rgba(0, 0, 0, 0.5),
+    1px 1px 0 rgba(0, 0, 0, 0.5); 
+}
+
+.dracula-player.dracula {
+  background-image: url('media/icon_player_dracula.png');
+}
+.dracula-player.godalming {
+  background-image: url('media/icon_player_godalming.png');
+}
+.dracula-player.seward {
+  background-image: url('media/icon_player_seward.png');
+}
+.dracula-player.helsing {
+  background-image: url('media/icon_player_helsing.png');
+}
+.dracula-player.harker {
+  background-image: url('media/icon_player_harker.png');
+}
