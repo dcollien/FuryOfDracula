@@ -74,7 +74,10 @@ for file in `ls`; do
    cd $file
    echo "\t\tCompiling $file.."
    make clean | sed "s/^/\t\t\t/g"
+   rm -rf game.c
    make all | sed "s/^/\t\t\t/g"
+   cp $base_dir/do_not_edit/game.c .
+   gcc -Wall -Werror -o myPlayer *.o game.c -ljansson
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of hunters"
    cp myPlayer ../hunter_$file.elf
@@ -94,7 +97,7 @@ if [ $# -eq 1 ]; then
 
    cd $round_name
    mkdir "logs";
-   for (( $i=0; $i<20; $i++ )); do
+   for (( $i=0; $i<1000; $i++ )); do
       ls -d | sort -R
       #TODO(damonkey): make this more evenly distributed
       #Grab the current files in the directory, decide if they are dracs or hunters
@@ -102,11 +105,11 @@ if [ $# -eq 1 ]; then
       #        and grab the first one from the shuffled list
       drac="`ls | grep -v ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
       hunter0="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
-      hunter1="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
-      hunter2="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
-      hunter3="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
+      hunter1=$hunter0
+      hunter2=$hunter1
+      hunter3=$hunter3
 
-      log_file="logs/$drac_.log";
+      log_file="logs/$drac_vs_$hunter0__$i.log";
       nodejs ../game_runner/runGame.js \
                "$PWD/$hunter0" \
                "$PWD/$hunter1" \
