@@ -49,7 +49,27 @@ if [ $# -eq 1 ]; then
 
    echo "\tCollecting hunters from openlearning and leaving them in $hunt_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
-   cp -r $base_dir/hunter/submissions/example $hunt_sub_round_dir/example
+#   cp -r $base_dir/hunter/submissions/example $hunt_sub_round_dir/example
+
+   cd /home/cs1927/13s2.work/projectHunt
+   pwd
+   for i in `ls | egrep "[a-z]{3}[0-9]{2}"`; do 
+      for j in `ls $i | grep -v "rename"`; do 
+         cp $i/$j/submission.tar $hunt_sub_round_dir/$j.tar; 
+      done ; 
+   done;
+
+   cd $hunt_sub_round_dir
+   for i in `ls | grep "tar$"`; do
+        mkdir $i;
+        mv $i.tar $i;
+        cd $i;
+        tar -xvf $i.tar;
+        cd ..;
+   done;
+
+   exit;
+
    echo "\tCopying them to directory to be compiled/modified"
    cp -r $hunt_sub_round_dir/* $hunt_comp_round_dir/.
 
@@ -77,7 +97,7 @@ for file in `ls`; do
    echo "\t\tCompiling $file..."
    echo "\t\tjavac `find . | grep ".java$" | paste -s`"
    
-   javac -sourcepath . $file/DraculaRunner.java 
+   javac -sourcepath . $file/DraculaRunner.java > $file.compilation_log 2>&1;
 #javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of dracs.."
