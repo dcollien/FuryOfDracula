@@ -30,6 +30,7 @@ if [ $# -eq 1 ]; then
    rm submissions.zip;
    chmod +rw `find .`
 
+   for i in `ls`; do mv $i `echo $i | sed "s/\./_/g"`; done 
    for i in `ls`; do mv $i/`ls $i` $i/$i.tar; done
    for i in `ls`; do cd $i; tar -xvf $i.tar; cd ..; done
    cd $base_dir
@@ -68,18 +69,22 @@ for file in `ls`; do
    cd $file
    #TODO(damonkey): copy in base files to each directory, overwriting
    #                the files that are labelled DO NOT EDIT
-
-   sed "s/dracula/$file/g" -i *.java
+   cp $base_dir/dracula/do_not_edit/*.java . 
+   sed "s/dracula/$file/g" -i `find . | grep "\.java$"`
 
    rm -rf *.class
+   cd ..
    echo "\t\tCompiling $file..."
    echo "\t\tjavac `find . | grep ".java$" | paste -s`"
-   javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
+   
+   javac -sourcepath . $file/DraculaRunner.java 
+#javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of dracs.."
    cd $drac_comp_round_dir
 done
-cd ../..
+
+exit
 
 echo "\tCompiling hunters..."
 cd $hunt_comp_round_dir
@@ -124,7 +129,7 @@ if [ $# -eq 1 ]; then
       hunter3=$hunter3
 
       log_file="logs/$drac_vs_$hunter0__$i.log";
-      nodejs ../game_runner/runGame.js \
+      ./node/node ../game_runner/runGame.js \
                "$PWD/$hunter0" \
                "$PWD/$hunter1" \
                "$PWD/$hunter2" \
