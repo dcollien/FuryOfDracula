@@ -18,7 +18,21 @@ if [ $# -eq 1 ]; then
 
    echo "\tCollecting dracs from openlearning and leaving them in $drac_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
-   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example
+#   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example
+
+   cd $drac_sub_round_dir
+   export AUTH='spots.admin.2013:aoeuidhtns'
+   export PAGE='unsw/courses/COMP9024/Activities/DraculaSubmission'
+   export COHORT='unsw/courses/COMP9024/Cohorts/2013Semester2'
+
+   /usr/bin/curl -L -k -u "$AUTH" "http://$AUTH@www.openlearning.com/api/getSubmissions?activity=$PAGE&cohort=$COHORT" > submissions.zip
+   unzip submissions.zip
+   rm submissions.zip;
+   chmod +rw `find .`
+
+   for i in `ls`; do mv $i/`ls $i` $i/$i.tar; done
+   for i in `ls`; do cd $i; tar -xvf $i.tar; cd ..; done
+   cd $base_dir
 
    echo "\tCopying them to directory to be compiled/modified"
    cp -r $drac_sub_round_dir/* $drac_comp_round_dir/.
