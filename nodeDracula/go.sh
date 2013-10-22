@@ -58,17 +58,16 @@ if [ $# -eq 1 ]; then
          cp $i/$j/submission.tar $hunt_sub_round_dir/$j.tar; 
       done ; 
    done;
-
+   
    cd $hunt_sub_round_dir
    for i in `ls | grep "tar$"`; do
+        i=`echo $i | sed "s/\.tar$//g"`;
         mkdir $i;
-        mv $i.tar $i;
+        mv $i.tar $i/.;
         cd $i;
         tar -xvf $i.tar;
         cd ..;
    done;
-
-   exit;
 
    echo "\tCopying them to directory to be compiled/modified"
    cp -r $hunt_sub_round_dir/* $hunt_comp_round_dir/.
@@ -104,19 +103,18 @@ for file in `ls`; do
    cd $drac_comp_round_dir
 done
 
-exit
-
 echo "\tCompiling hunters..."
 cd $hunt_comp_round_dir
 
+read
+
 for file in `ls`; do
    cd $file
+   cp $base_dir/hunter/do_not_edit/*.c .
+   cp $base_dir/hunter/do_not_edit/*.h .
    echo "\t\tCompiling $file.."
-   make clean | sed "s/^/\t\t\t/g"
-   rm -rf game.c
-   make all | sed "s/^/\t\t\t/g"
-   cp $base_dir/do_not_edit/game.c .
-   gcc -Wall -Werror -o myPlayer *.o game.c -ljansson
+   make | sed "s/^/\t\t\t/g"
+   gcc -o myPlayer *.o game.c -ljansson
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of hunters"
    cp myPlayer ../hunter_$file.elf
@@ -124,19 +122,26 @@ for file in `ls`; do
 done
 cd $base_dir
 
+read
 
 
 echo "Compilation complete."
 echo "Running Games..."
 if [ $# -eq 1 ]; then
    mkdir $round_name
+   
    cp -r $drac_comp_round_dir/* $round_name/.
    cp $hunt_comp_round_dir/*.elf  $round_name/.
-
+   cp $hunt_comp_round_dir/*compilation_log $round_name/.
 
    cd $round_name
+   mkdir compilation_logs
+   mv `ls | grep compilation_log` compilation_logs/.
+
+   chmod +x *.elf
+
    mkdir "logs";
-   for (( $i=0; $i<1000; $i++ )); do
+   for (( i=0; $i<1000; i++ )); do
       ls -d | sort -R
       #TODO(damonkey): make this more evenly distributed
       #Grab the current files in the directory, decide if they are dracs or hunters
@@ -148,14 +153,14 @@ if [ $# -eq 1 ]; then
       hunter2=$hunter1
       hunter3=$hunter3
 
-      log_file="logs/$drac_vs_$hunter0__$i.log";
-      ./node/node ../game_runner/runGame.js \
+      log_file="logs/$i.log";
+      ./../node/node ../game_runner/runGame.js \
                "$PWD/$hunter0" \
                "$PWD/$hunter1" \
                "$PWD/$hunter2" \
                "$PWD/$hunter3" \
                "java -ea $drac.DraculaRunner" \
-                        | sed "s/^/\t/g" > $log_file
+                        | sed "s/^/\t/g" > $log_file 2>&1
 
    done;
    cd ..

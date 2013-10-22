@@ -103,7 +103,7 @@ int main( int argc, char *argv[] ) {
    stdout = stderr;
    
    inputData = getInput( );
-   
+   gettimeofday(&startTime, NULL);
    // start timer and enable timeUpHandler interrupt
    startTimer( );
    

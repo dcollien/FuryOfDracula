@@ -55,7 +55,7 @@ function runPlayer( playerProgram, programInput, callback, args ) {
 	
 	// sent programInput object to subprocess as stdin
 	playerProcess.stdin.write( JSON.stringify( programInput ) );
-        console.log(programInput);
+   console.log(JSON.stringify(programInput));
 	playerProcess.stdin.end( );
 }
 
@@ -63,17 +63,17 @@ function runGame( playerPrograms ) {
 	game.setRules( gameRules );
 	
 	game.on( 'playerTurn', function( playerIndex, playerInput ) {
-//		console.log( "> " );
-//		console.log( "> ----------------------------------------- <" );
-//		console.log( "> Input for player " + playerIndex + ":" );
+		console.log( "> " );
+		console.log( "> ----------------------------------------- <" );
+		console.log( "> Input for player " + playerIndex + ":" );
 		
-//		console.log( "> +++" );
+		console.log( "> +++" );
 		list.each( playerInput, function( value, key ) {
-//			if ( key === "messages" ) return; // DEBUG
-//			console.log( "  " + key + ": " );
-//			console.log( value );
+			if ( key === "messages" ) return; // DEBUG
+			console.log( "  " + key + ": " );
+			console.log( value );
 		} );
-//		console.log( "> ---" );
+		console.log( "> ---" );
 		
 		var programToRun = playerPrograms[playerIndex];
 		var args = [];
@@ -86,12 +86,12 @@ function runGame( playerPrograms ) {
 		if ( !programToRun ) {
 			game.playMove( );
 		} else {
-//			console.log( "> Running player " + playerIndex + "... " );
+			console.log( "> Running player " + playerIndex + "... " );
 			runPlayer( programToRun, playerInput, function( playerMove, playerOutput ) {
 				// spit out the player's output
-//				console.log( "# ---   Player Output   ---" );
-//				console.log( playerOutput );
-//				console.log( "# --- End Player Output ---" );
+				console.log( "# ---   Player Output   ---" );
+				console.log( playerOutput );
+				console.log( "# --- End Player Output ---" );
 				
 				// play the player's move
 				game.playMove( playerMove );
@@ -120,14 +120,14 @@ function runGame( playerPrograms ) {
 	} );
 	
 	game.on( 'gameOver', function( ) {
-//		console.log( "> End of game: " );
-//		console.log( "> +++" );
-//		list.each( game.getOutput( ), function( value, key ) {
-//			console.log( "  " + key + ": " + value );
-//		} );
-//		console.log( "> ---" );
-		
-//		console.log( "> Game Over" );
+		console.log( "> End of game: " );
+		console.log( "> +++" );
+		list.each( game.getOutput( ), function( value, key ) {
+			console.log( "  " + key + ": " + value );
+		} );
+		console.log( "> ---" );
+
+		console.log( "> Game Over" );
 	} );
 	
 	game.run( );
