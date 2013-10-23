@@ -220,6 +220,9 @@ var isLegalDoublebackMove = function( state, move ) {
 		 var allConnections = getDraculaConnections( state );
 		 var isAdjacentTrailMove = list.contains( allConnections, doubleBackLocation );
 		 
+		 // is adjacent to or the same as dracula's current location
+		 isAdjacentTrailMove = isAdjacentTrailMove || (doubleBackLocation === state.dracula.location);
+
 		 if ( !isAdjacentTrailMove ) { 
 			// A DOUBLE_BACK move is a move to a location adjacent to or the
 			// same as his current location
