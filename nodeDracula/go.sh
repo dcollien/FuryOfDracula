@@ -18,7 +18,22 @@ if [ $# -eq 1 ]; then
 
    echo "\tCollecting dracs from openlearning and leaving them in $drac_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
-   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example
+#   cp -r $base_dir/dracula/submissions/example $drac_sub_round_dir/example
+
+   cd $drac_sub_round_dir
+   export AUTH='spots.admin.2013:aoeuidhtns'
+   export PAGE='unsw/courses/COMP9024/Activities/DraculaSubmission'
+   export COHORT='unsw/courses/COMP9024/Cohorts/2013Semester2'
+
+   /usr/bin/curl -L -k -u "$AUTH" "http://$AUTH@www.openlearning.com/api/getSubmissions?activity=$PAGE&cohort=$COHORT" > submissions.zip
+   unzip submissions.zip
+   rm submissions.zip;
+   chmod +rw `find .`
+
+   for i in `ls`; do mv $i `echo $i | sed "s/\./_/g"`; done 
+   for i in `ls`; do mv $i/`ls $i` $i/$i.tar; done
+   for i in `ls`; do cd $i; tar -xvf $i.tar; cd ..; done
+   cd $base_dir
 
    echo "\tCopying them to directory to be compiled/modified"
    cp -r $drac_sub_round_dir/* $drac_comp_round_dir/.
@@ -34,7 +49,26 @@ if [ $# -eq 1 ]; then
 
    echo "\tCollecting hunters from openlearning and leaving them in $hunt_sub_round_dir"
    #TODO(damonkey): make this not just grab my example..
-   cp -r $base_dir/hunter/submissions/example $hunt_sub_round_dir/example
+#   cp -r $base_dir/hunter/submissions/example $hunt_sub_round_dir/example
+
+   cd /home/cs1927/13s2.work/projectHunt
+   pwd
+   for i in `ls | egrep "[a-z]{3}[0-9]{2}"`; do 
+      for j in `ls $i | grep -v "rename"`; do 
+         cp $i/$j/submission.tar $hunt_sub_round_dir/$j.tar; 
+      done ; 
+   done;
+   
+   cd $hunt_sub_round_dir
+   for i in `ls | grep "tar$"`; do
+        i=`echo $i | sed "s/\.tar$//g"`;
+        mkdir $i;
+        mv $i.tar $i/.;
+        cd $i;
+        tar -xvf $i.tar;
+        cd ..;
+   done;
+
    echo "\tCopying them to directory to be compiled/modified"
    cp -r $hunt_sub_round_dir/* $hunt_comp_round_dir/.
 
@@ -54,30 +88,33 @@ for file in `ls`; do
    cd $file
    #TODO(damonkey): copy in base files to each directory, overwriting
    #                the files that are labelled DO NOT EDIT
-
-   sed "s/dracula/$file/g" -i *.java
+   cp $base_dir/dracula/do_not_edit/*.java . 
+   sed "s/dracula/$file/g" -i `find . | grep "\.java$"`
 
    rm -rf *.class
+   cd ..
    echo "\t\tCompiling $file..."
    echo "\t\tjavac `find . | grep ".java$" | paste -s`"
-   javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
+   
+   javac -sourcepath . $file/DraculaRunner.java > $file.compilation_log 2>&1;
+#javac `find . | grep ".java$"` | sed "s/^/\t\t\t/g";
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of dracs.."
    cd $drac_comp_round_dir
 done
-cd ../..
 
 echo "\tCompiling hunters..."
 cd $hunt_comp_round_dir
 
+read
+
 for file in `ls`; do
    cd $file
+   cp $base_dir/hunter/do_not_edit/*.c .
+   cp $base_dir/hunter/do_not_edit/*.h .
    echo "\t\tCompiling $file.."
-   make clean | sed "s/^/\t\t\t/g"
-   rm -rf game.c
-   make all | sed "s/^/\t\t\t/g"
-   cp $base_dir/do_not_edit/game.c .
-   gcc -Wall -Werror -o myPlayer *.o game.c -ljansson
+   make | sed "s/^/\t\t\t/g"
+   gcc -o myPlayer *.o game.c -ljansson
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of hunters"
    cp myPlayer ../hunter_$file.elf
@@ -85,19 +122,26 @@ for file in `ls`; do
 done
 cd $base_dir
 
+read
 
 
 echo "Compilation complete."
 echo "Running Games..."
 if [ $# -eq 1 ]; then
    mkdir $round_name
+   
    cp -r $drac_comp_round_dir/* $round_name/.
    cp $hunt_comp_round_dir/*.elf  $round_name/.
-
+   cp $hunt_comp_round_dir/*compilation_log $round_name/.
 
    cd $round_name
+   mkdir compilation_logs
+   mv `ls | grep compilation_log` compilation_logs/.
+
+   chmod +x *.elf
+
    mkdir "logs";
-   for (( $i=0; $i<1000; $i++ )); do
+   for (( i=0; $i<1000; i++ )); do
       ls -d | sort -R
       #TODO(damonkey): make this more evenly distributed
       #Grab the current files in the directory, decide if they are dracs or hunters
@@ -109,14 +153,14 @@ if [ $# -eq 1 ]; then
       hunter2=$hunter1
       hunter3=$hunter3
 
-      log_file="logs/$drac_vs_$hunter0__$i.log";
-      nodejs ../game_runner/runGame.js \
+      log_file="logs/$i.log";
+      ./../node/node ../game_runner/runGame.js \
                "$PWD/$hunter0" \
                "$PWD/$hunter1" \
                "$PWD/$hunter2" \
                "$PWD/$hunter3" \
                "java -ea $drac.DraculaRunner" \
-                        | sed "s/^/\t/g" > $log_file
+                        | sed "s/^/\t/g" > $log_file 2>&1
 
    done;
    cd ..

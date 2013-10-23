@@ -49,7 +49,6 @@ GameRunner.prototype.playMove = function( move ) {
 	  this.isDisqualified[this.playerIndex] = true;
 	  this.emit( 'playerDisqualified', this.playerIndex, move );
 	  this.rules.playDefaultMove( this.state );
-	  return; // for now
    } else {
 	  this.rules.playMove( this.state, move );
 	  
