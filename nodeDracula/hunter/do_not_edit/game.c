@@ -70,6 +70,8 @@
 #define TIMER_SIGNAL SIGPROF
 #define TIMER_TYPE ITIMER_PROF
 
+#define EXIT_TIMEOUT 42
+
 // stores input data
 typedef struct {
    char *pastPlays;
@@ -318,6 +320,6 @@ static void timesUpHandler( int signalID ) {
       resetStdout( );
       // print out the move data
       outputMove( );
-      exit( EXIT_SUCCESS );
+      exit( EXIT_TIMEOUT );
    }
 }
