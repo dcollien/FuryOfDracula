@@ -142,9 +142,9 @@ function runGame( playerPrograms ) {
 		console.log( "> Game Over" );
       console.log(game.score);
       console.log(game.round);
-      list.each(this.isDisqualified, function(value, key) {
-         console.log("Was player " + key + " disqualified? " + value);
-      });
+      for (i in this.isDisqualified) {
+          console.log("Player " + i + " was disqualified? " + this.isDisqualified[i]);
+      }
 
 } );
 	
