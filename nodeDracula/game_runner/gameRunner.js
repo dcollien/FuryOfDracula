@@ -40,7 +40,6 @@ GameRunner.prototype.isLegalMove = function( move ) {
 };
 
 GameRunner.prototype.playMove = function( move ) {
-   console.log(move);
    if ( !move ) {
      // play a default move if one isn't provided
      this.rules.playDefaultMove( this.state );
