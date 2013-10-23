@@ -80,6 +80,22 @@ function runPlayer( playerProgram, programInput, callback, args ) {
 }
 
 function runGame( playerPrograms ) {
+   console.log("   The FURY of DRACULA   ")
+   console.log("          _..._          ");
+   console.log("        .'     '.        ");
+   console.log("       ; __   __ ;       ");
+   console.log("       |/  \\ /  \\|       ");
+   console.log("     |\\| -- ' -- |/|     ");
+   console.log("     |(| \\o| |o/ |)|     ");
+   console.log("     _\\|    U    |/_     ");
+   console.log("  .-'  | ,.___., |  '-.  ");
+   console.log("  \\    ;  V'-'V  ;    /  ");
+   console.log("   `\\   \\       /   /`   ");
+   console.log("     `\\  '-...-'  /`     ");
+   console.log("       `\\  / \\  /`       ");
+   console.log("         `\\\\_//`         ");
+   console.log("...........................");
+   
    game.setRules( gameRules );
    
    game.on( 'playerTurn', function( playerIndex, playerInput ) {
