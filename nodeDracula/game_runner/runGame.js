@@ -39,11 +39,16 @@ function runPlayer( playerProgram, programInput, callback, args ) {
 	var playerProcess = spawn( playerProgram, args );
 	
 	playerProcess.on( 'exit', function( code, signal ) {
-		var outputObject;
+
+      if (code != 0) {
+         console.log("Program exited with exit code " + code);
+      }
+
+      var outputObject;
 		// expect JSON output on stdout, normal output on stderr
       console.log("STDOUT: " + stdout + "");
       console.log("STDERR: " + stderr + "");	
-	
+
       try {
 			outputObject = JSON.parse(stdout);
 		} catch( e ) {

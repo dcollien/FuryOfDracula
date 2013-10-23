@@ -96,13 +96,9 @@ int main( int argc, char *argv[] ) {
    HunterView gameState;
    
    inputData_t *inputData;
+   no_stdout_for_you();
    
    // we're using stdout for move output
-   fflush(stdout);
-   fgetpos(stdout, &pos);
-   fd = dup(fileno(stdout));
-   dup2(fileno(stderr),fileno(stdout));
-
    // user's stdout is redirected to stderr
    
    inputData = getInput( );
@@ -119,17 +115,28 @@ int main( int argc, char *argv[] ) {
    
    gettimeofday( &endTime, NULL );
    
+   outputMove( );
+   
+   freeInput( inputData );
+   
+   return EXIT_SUCCESS;
+}
+
+void no_stdout_for_you() {
+   fflush(stdout);
+   fgetpos(stdout, &pos);
+   fd = dup(fileno(stdout));
+   dup2(fileno(stderr),fileno(stdout));
+}
+
+void stdout_for_you() {
+
    fflush(stdout);
    dup2(fd, fileno(stdout));
    close(fd);
    clearerr(stdout);
    fsetpos(stdout, &pos);
 
-   outputMove( );
-   
-   freeInput( inputData );
-   
-   return EXIT_SUCCESS;
 }
 
 // Saves characters from play (and appends a terminator)
@@ -147,6 +154,7 @@ void registerBestPlay ( char *play, playerMessage message ) {
 
 // Output the last registered move as JSON
 static void outputMove( void ) {
+   stdout_for_you();
    double startTime_uS = startTime.tv_sec*USEC_TO_SEC + (startTime.tv_usec);
    double endTime_uS   = endTime.tv_sec*USEC_TO_SEC + (endTime.tv_usec);
    int usTaken = endTime_uS - startTime_uS;
@@ -172,6 +180,7 @@ static void outputMove( void ) {
    json_object_set_new( outputJSON, "timer", json_integer( usTaken ) );
    
    json_dumpf( outputJSON, stdout, 0 );
+   no_stdout_for_you();
 }
 
 // Clean up memory allocated for the input data
