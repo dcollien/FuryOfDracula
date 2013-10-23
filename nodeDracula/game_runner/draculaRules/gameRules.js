@@ -50,16 +50,16 @@ var rules = {
 	  state.messages.push( message );
 
 	  if ( state.currentPlayer.type === 'hunter' ) {
-                 console.log("generating default hunter move");
+       //console.log("generating default hunter move");
 		 if ( state.round === 0 ) {
 			move = gameMap.hospitalCityCode;
 		 } else {
 			move = state.currentPlayer.location;
 		 }
 
-		 console.log( "> Moving from: " + state.currentPlayer.location );
-		 console.log( "> Life Points: " + state.currentPlayer.lifePoints );
-
+		 //console.log( "> Moving from: " + state.currentPlayer.location );
+		 //console.log( "> Life Points: " + state.currentPlayer.lifePoints );
+       console.log("Default Hunter Move " + JSON.stringify(move));
 		 gameLogic.doHunterMove( state, move );
 
 
@@ -76,16 +76,16 @@ var rules = {
 
 
 
-		 console.log( "> Dracula move: " );
-		 console.log( "> +++" );
-		 console.log( "  move: " + move );
-		 console.log( "  message: " + message );
-		 console.log( "> ---" );
+		 //console.log( "> Dracula move: " );
+		 //console.log( "> +++" );
+		 //console.log( "  move: " + move );
+		 //console.log( "  message: " + message );
+		 //console.log( "> ---" );
 
-		 console.log( "> Moving from: " + state.currentPlayer.location );
-		 console.log( "> Blood Points: " + state.currentPlayer.bloodPoints );
+		 //console.log( "> Moving from: " + state.currentPlayer.location );
+		 //console.log( "> Blood Points: " + state.currentPlayer.bloodPoints );
 
-
+       console.log("Default Dracula Move: " + JSON.stringify(move));
 		 gameLogic.doDraculaMove( state, move );
 	  }
    },

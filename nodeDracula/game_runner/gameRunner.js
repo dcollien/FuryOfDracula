@@ -77,10 +77,11 @@ GameRunner.prototype.getPlayerInput = function( ) {
 }
 
 GameRunner.prototype.getNextMove = function( ) {
+   console.log("--------------------------------------------------------------------------");
    if ( this.rules.isGameOver( this.state ) ) {
 	  this.emit( 'gameOver' );
    } else if ( this.isDisqualified[this.playerIndex] ) {
-          console.log("Player currently disqualified.. taking thier move.." + this.playerIndex);
+     console.log("Player currently disqualified.. taking thier move.." + this.playerIndex);
 	  this.playMove( );
    } else {
 	  assert( this.playerIndex !== undefined, 'playerIndex is undefined. in getNextMove( )' );

@@ -86,10 +86,11 @@ static void freeInput( inputData_t *inputData );
 // The minimum static globals I can get away with
 static struct timeval startTime;
 static struct timeval endTime;
-static FILE *jsonOut;
 static bool isTiming = false;
 static char latestPlay[MOVE_SIZE] = "";
 static char latestMessage[MESSAGE_SIZE] = "";
+static int fd;
+static fpos_t pos;
 
 int main( int argc, char *argv[] ) {
    HunterView gameState;
@@ -97,10 +98,12 @@ int main( int argc, char *argv[] ) {
    inputData_t *inputData;
    
    // we're using stdout for move output
-   jsonOut = stdout;
-   
+   fflush(stdout);
+   fgetpos(stdout, &pos);
+   fd = dup(fileno(stdout));
+   dup2(fileno(stderr),fileno(stdout));
+
    // user's stdout is redirected to stderr
-   stdout = stderr;
    
    inputData = getInput( );
    gettimeofday(&startTime, NULL);
@@ -116,6 +119,12 @@ int main( int argc, char *argv[] ) {
    
    gettimeofday( &endTime, NULL );
    
+   fflush(stdout);
+   dup2(fd, fileno(stdout));
+   close(fd);
+   clearerr(stdout);
+   fsetpos(stdout, &pos);
+
    outputMove( );
    
    freeInput( inputData );
@@ -162,8 +171,7 @@ static void outputMove( void ) {
    
    json_object_set_new( outputJSON, "timer", json_integer( usTaken ) );
    
-   // dump the JSON to jsonOut
-   json_dumpf( outputJSON, jsonOut, 0 );
+   json_dumpf( outputJSON, stdout, 0 );
 }
 
 // Clean up memory allocated for the input data
@@ -197,14 +205,14 @@ static inputData_t *getInput( void ) {
    // get JSON object from STDIN
    rootJSON = json_loadf( stdin, 0, &error );
    if ( rootJSON == NULL ) {
-     fprintf( jsonOut, "Input error: on line %d: %s\n", error.line, error.text );
+     fprintf( stderr, "Input error: on line %d: %s\n", error.line, error.text );
      exit( EXIT_FAILURE );
    }
    
    // get past plays string from the JSON object
    pastPlaysJSON = json_object_get( rootJSON, "pastPlays" );
    if ( !json_is_string( pastPlaysJSON ) ) {
-     fprintf( jsonOut, "Input error: pastPlays is not a string\n" );
+     fprintf( stderr, "Input error: pastPlays is not a string\n" );
      exit( EXIT_FAILURE );
    }
    
@@ -219,7 +227,7 @@ static inputData_t *getInput( void ) {
    // get messages array from the JSON object
    messagesJSON = json_object_get( rootJSON, "messages" );
    if ( !json_is_array( messagesJSON ) ) {
-     fprintf( jsonOut, "Input error: messages is not an array\n" );
+     fprintf( stderr, "Input error: messages is not an array\n" );
      exit( EXIT_FAILURE );
    }
    
@@ -232,7 +240,7 @@ static inputData_t *getInput( void ) {
      messageItemJSON = json_array_get( messagesJSON, i );
      
      if ( !json_is_string( messageItemJSON ) ) {
-       fprintf( jsonOut, "Input error: messages[%d] is not a string\n", i );
+       fprintf( stderr, "Input error: messages[%d] is not a string\n", i );
        exit( EXIT_FAILURE );
      }
      

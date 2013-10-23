@@ -59,7 +59,7 @@ public class DraculaRunner {
       DecideMoveTask d = new DecideMoveTask(pastPlays, messages);
       DraculaMove m = null;
       try {
-         m = executor.submit(d).get(15, TimeUnit.MINUTES);
+         m = executor.submit(d).get(5, TimeUnit.SECONDS);
       } catch (java.lang.InterruptedException i) {
          failed = i;
       } catch (java.util.concurrent.ExecutionException e) {

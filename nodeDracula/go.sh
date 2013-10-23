@@ -106,23 +106,21 @@ done
 echo "\tCompiling hunters..."
 cd $hunt_comp_round_dir
 
-read
 
 for file in `ls`; do
    cd $file
    cp $base_dir/hunter/do_not_edit/*.c .
    cp $base_dir/hunter/do_not_edit/*.h .
    echo "\t\tCompiling $file.."
-   make | sed "s/^/\t\t\t/g"
-   gcc -o myPlayer *.o game.c -ljansson
+   make > $file.compilation_log 2>&1;
+   gcc -o myPlayer *.o game.c -ljansson >> $file.compilation_log 2>&1
    echo "\t\tCompilation for $file completed."
    echo "\t\tMoving it to the list of hunters"
-   cp myPlayer ../hunter_$file.elf
+   cp myPlayer ../$file.elf
    cd $hunt_comp_round_dir
 done
 cd $base_dir
 
-read
 
 
 echo "Compilation complete."
@@ -136,11 +134,14 @@ if [ $# -eq 1 ]; then
 
    cd $round_name
    mkdir compilation_logs
-   mv `ls | grep compilation_log` compilation_logs/.
+   mv `ls | grep compilation_log` compilation_logs/.                
+   cp `find $hunt_comp_round_dir | grep compilation_log` compilation_logs/.
 
    chmod +x *.elf
 
    mkdir "logs";
+   touch logs/who_ran_in_what.log
+
    for (( i=0; $i<1000; i++ )); do
       ls -d | sort -R
       #TODO(damonkey): make this more evenly distributed
@@ -151,16 +152,18 @@ if [ $# -eq 1 ]; then
       hunter0="`ls | grep ".elf$" | grep -v "logs" | sort -R | tail -n 1`"
       hunter1=$hunter0
       hunter2=$hunter1
-      hunter3=$hunter3
+      hunter3=$hunter2            
 
+      echo $i ": " $drac "vs" $hunter0 >> logs/who_ran_in_what.log
+      echo $drac " vs " $hunter0
       log_file="logs/$i.log";
       ./../node/node ../game_runner/runGame.js \
                "$PWD/$hunter0" \
                "$PWD/$hunter1" \
                "$PWD/$hunter2" \
                "$PWD/$hunter3" \
-               "java -ea $drac.DraculaRunner" \
-                        | sed "s/^/\t/g" > $log_file 2>&1
+               "timeout 90 java -ea $drac.DraculaRunner" \
+                        | sed "s/^/\t/g" > $log_file
 
    done;
    cd ..
