@@ -17,7 +17,7 @@ var game = new gameRunner( );
 
 function runPlayer( playerProgram, programInput, callback, args ) {
    console.log(playerProgram + args);
-   console.log(JSON.stringify(programInput));
+   console.log('Running with input: ', JSON.stringify(programInput, null, 2));
    var killed = false;
    
    var stdout = '';
@@ -44,17 +44,20 @@ function runPlayer( playerProgram, programInput, callback, args ) {
       if (code !== 0) {
          console.log("Program exited with code: " + code);
       }
+      if (signal !== null) {
+         console.log("Received signal: " + signal.toString());
+      }
    });
    
    playerProcess.on( 'close', function( code, signal ) {
       var outputObject;
       // expect JSON output on stdout, normal output on stderr
-      console.log("Output: " + stderr + ""); 
+      console.log("Program Output: " + stderr + ""); 
 
       try {
          outputObject = JSON.parse(stdout);
       } catch( e ) {
-         console.log("Output corrupted: \""+ stdout + "\"");
+         console.log("Move data corrupted: \""+ stdout + "\"");
          console.log(e);
          outputObject = { };
       }
@@ -62,6 +65,10 @@ function runPlayer( playerProgram, programInput, callback, args ) {
       console.log('Move: ', JSON.stringify(outputObject, null, 2));
       
       callback( outputObject, stderr );
+   } );
+   
+   playerProcess.on( 'error', function( err ) {
+      console.log("Error: " + err.toString());
    } );
    
    playerProcess.stdout.on( 'data', writeOut );
