@@ -10,7 +10,7 @@ var gameMap = require( './gameMap' );
 var hunterSuffix = function( turnData ) {
    // Hunter Play
    var play = '';
-	  
+     
    // 2 uppercase characters representing the new location of the hunter.
    assert( turnData.location, 'playerMoves location is undefined. in hunterSuffix' );
    play = play.concat( turnData.location );
@@ -46,63 +46,63 @@ var generatePlay = function( state, playerType, turnNumber ) {
    var play = '';
    
    if ( playerNumber === constants.draculaPlayerNumber ) {
-	  // Make dracula play
-	  
-	  if ( isDracula ) {
-		 playerKnowledge = state.draculaMoves[roundNumber];
-	  } else {
-		 playerKnowledge = state.hunterKnowledge[roundNumber];
-	  }
-	  
-	  draculaAction = state.draculaActions[roundNumber];
-	  roundAction = state.roundActions[roundNumber];
-	  
-	  play = play.concat( state.dracula.playCode );
-	  
-	  assert( playerKnowledge, 'player knowledge is undefined. drac moves:\n'
-			 + state.draculaMoves + ' hunter knowledge:\n'
-			 + state.hunterKnowledge + '\n round number: ' + roundNumber );
-	  
-	  // 2 uppercase characters representing the new location of Dracula
-	  play = play.concat( playerKnowledge );
-	  
-	  // 2 characters representing the encounter Dracula placed
-	  // 'T' if a Trap was placed, otherwise '.'
-	  if ( draculaAction === constants.draculaActionPlacedTrap ) {
-		 play = play.concat( 'T' );
-	  } else {
-		 play = play.concat( '.' );
-	  }
-	  
-	  // 'V' if an immature Vampire was placed, otherwise '.'
-	  if ( draculaAction === constants.draculaActionPlacedVampire ) {
-		 play = play.concat( 'V' );
-	  } else {
-		 play = play.concat( '.' );
-	  }
-	  
-	  // 1 character representing the action phase of Dracula's turn
-	  // N.B. "action phase" is a bit misleading, I call it 'round action'
-	  if ( roundAction === constants.roundActionTrapMalfunction ) {
-		 // 'M' if a Trap has left the trail (malfunctions due to old age)
-		 play = play.concat( 'M' );
-	  } else if ( roundAction === constants.roundActionVampireMatured ) {
-		 // 'V' if a Vampire has matured. (eek!)
-		 play = play.concat( 'V' );
-	  } else {
-		 // '.' = Nothing has occurred (eg early in game)
-		 play = play.concat( '.' );
-	  }
-	  
-	  // a single '.' character
-	  play = play.concat( '.' );
+     // Make dracula play
+     
+     if ( isDracula ) {
+       playerKnowledge = state.draculaMoves[roundNumber];
+     } else {
+       playerKnowledge = state.hunterKnowledge[roundNumber];
+     }
+     
+     draculaAction = state.draculaActions[roundNumber];
+     roundAction = state.roundActions[roundNumber];
+     
+     play = play.concat( state.dracula.playCode );
+     
+     assert( playerKnowledge, 'player knowledge is undefined. drac moves:\n'
+          + state.draculaMoves + ' hunter knowledge:\n'
+          + state.hunterKnowledge + '\n round number: ' + roundNumber );
+     
+     // 2 uppercase characters representing the new location of Dracula
+     play = play.concat( playerKnowledge );
+     
+     // 2 characters representing the encounter Dracula placed
+     // 'T' if a Trap was placed, otherwise '.'
+     if ( draculaAction === constants.draculaActionPlacedTrap ) {
+       play = play.concat( 'T' );
+     } else {
+       play = play.concat( '.' );
+     }
+     
+     // 'V' if an immature Vampire was placed, otherwise '.'
+     if ( draculaAction === constants.draculaActionPlacedVampire ) {
+       play = play.concat( 'V' );
+     } else {
+       play = play.concat( '.' );
+     }
+     
+     // 1 character representing the action phase of Dracula's turn
+     // N.B. "action phase" is a bit misleading, I call it 'round action'
+     if ( roundAction === constants.roundActionTrapMalfunction ) {
+       // 'M' if a Trap has left the trail (malfunctions due to old age)
+       play = play.concat( 'M' );
+     } else if ( roundAction === constants.roundActionVampireMatured ) {
+       // 'V' if a Vampire has matured. (eek!)
+       play = play.concat( 'V' );
+     } else {
+       // '.' = Nothing has occurred (eg early in game)
+       play = play.concat( '.' );
+     }
+     
+     // a single '.' character
+     play = play.concat( '.' );
    } else {
-	  // Make hunter play
-	  turnData = state.hunterMoves[playerNumber][roundNumber];
-	  assert( turnData, 'generateHunterPlay' );
-	  
-	  play = play.concat( state.playSequence[playerNumber].playCode );
-	  play = play.concat( hunterSuffix( turnData ) );
+     // Make hunter play
+     turnData = state.hunterMoves[playerNumber][roundNumber];
+     assert( turnData, 'generateHunterPlay' );
+     
+     play = play.concat( state.playSequence[playerNumber].playCode );
+     play = play.concat( hunterSuffix( turnData ) );
    }
    
    assert( play.length == 7, 'Each play is 7 characters long: "' + play + '" = ' + play.length + '. in generatePlay' );
@@ -112,19 +112,19 @@ var generatePlay = function( state, playerType, turnNumber ) {
 
 module.exports = {
    generatePastPlays: function( state, playerType ) {
-	  if ( !playerType ) {
-		 playerType = state.currentPlayer.type;
-	  }
-	  
-	  var numPlayers = state.playSequence.length;
-	  var currentTurn = (state.round * numPlayers) + state.currentPlayerNumber;
-	  
-	  var playMaker = generatePlay.partialApply( state, playerType );
-	  
-	  var pastPlays = list.make( Array, playMaker, currentTurn );
-	  
-	  assert( pastPlays.length === currentTurn, 'pastPlays of incorrect length. in generatePastPlays' );
-	  
-	  return pastPlays.join( ' ' );
+     if ( !playerType ) {
+       playerType = state.currentPlayer.type;
+     }
+     
+     var numPlayers = state.playSequence.length;
+     var currentTurn = (state.round * numPlayers) + state.currentPlayerNumber;
+     
+     var playMaker = generatePlay.partialApply( state, playerType );
+     
+     var pastPlays = list.make( Array, playMaker, currentTurn );
+     
+     assert( pastPlays.length === currentTurn, 'pastPlays of incorrect length. in generatePastPlays' );
+     
+     return pastPlays.join( ' ' );
    }
 };

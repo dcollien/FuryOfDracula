@@ -9,486 +9,486 @@ var constants = require( './gameConstants' );
 var locationDetails = [
    // Special
    {
-	  code: 'JM',
-	  name: 'St Joseph & St Mary',
-	  isHospital: true,
-	  isCity: true,
-	  isPort: false
+     code: 'JM',
+     name: 'St Joseph & St Mary',
+     isHospital: true,
+     isCity: true,
+     isPort: false
    },
    {
-	  code: 'CD',
-	  name: 'Castle Dracula',
-	  isCastleDracula: true,
-	  isCity: true,
-	  isPort: false
+     code: 'CD',
+     name: 'Castle Dracula',
+     isCastleDracula: true,
+     isCity: true,
+     isPort: false
    },
    
    
    // Cities
    {
-	  code: 'AL',
-	  name: 'Alicante',
-	  size: 'small',
-	  isCity: true,
-	  isPort: true
+     code: 'AL',
+     name: 'Alicante',
+     size: 'small',
+     isCity: true,
+     isPort: true
    },
    {
-	  code: 'AM',
-	  name: 'Alicante',
-	  size: 'large',
-	  isCity: true,
-	  isPort: true
+     code: 'AM',
+     name: 'Alicante',
+     size: 'large',
+     isCity: true,
+     isPort: true
    },
    {
-	  code: 'AT',
-	  name: 'Athens',
-	  size: 'large',
-	  isCity: true,
-	  isPort: true
+     code: 'AT',
+     name: 'Athens',
+     size: 'large',
+     isCity: true,
+     isPort: true
    },
    {
-	  code: 'BA',
-	  name: 'Barcelona',
-	  size: 'large',
-	  isCity: true,
-	  isPort: true
+     code: 'BA',
+     name: 'Barcelona',
+     size: 'large',
+     isCity: true,
+     isPort: true
    },
    {
-	  code: 'BI',
-	  name: 'Bari',
-	  size: 'small',
-	  isCity: true,
-	  isPort: true
+     code: 'BI',
+     name: 'Bari',
+     size: 'small',
+     isCity: true,
+     isPort: true
    },
    {
-	  code: 'BE',
-	  name: 'Belgrade',
-	  size: 'small',
-	  isCity: true,
-	  isPort: false
+     code: 'BE',
+     name: 'Belgrade',
+     size: 'small',
+     isCity: true,
+     isPort: false
    },
    {
-	  code:'BR',
-	  name:'Berlin',
-	  size:'large',
-	  isCity: true,
-	  isPort:false
+     code:'BR',
+     name:'Berlin',
+     size:'large',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'BO',
-	  name:'Bordeaux',
-	  size:'large',
-	  isCity: true,
-	  isPort:true
+     code:'BO',
+     name:'Bordeaux',
+     size:'large',
+     isCity: true,
+     isPort:true
    },
    {
-	  code:'BU',
-	  name:'Brussels',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'BU',
+     name:'Brussels',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'BC',
-	  name:'Bucharest',
-	  size:'large',
-	  isCity: true,
-	  isPort:false
+     code:'BC',
+     name:'Bucharest',
+     size:'large',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'BD',
-	  name:'Budapest',
-	  size:'large',
-	  isCity: true,
-	  isPort:false
+     code:'BD',
+     name:'Budapest',
+     size:'large',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'CA',
-	  name:'Cadiz',
-	  size:'large',
-	  isCity: true,
-	  isPort: true
+     code:'CA',
+     name:'Cadiz',
+     size:'large',
+     isCity: true,
+     isPort: true
    },
    {
-	  code:'CG',
-	  name:'Cagliari',
-	  size:'small',
-	  isCity: true,
-	  isPort: true
+     code:'CG',
+     name:'Cagliari',
+     size:'small',
+     isCity: true,
+     isPort: true
    },
    {
-	  code:'CF',
-	  name:'Clermont Ferrand',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'CF',
+     name:'Clermont Ferrand',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'CO',
-	  name:'Cologne',
-	  size:'large',
-	  isCity: true,
-	  isPort:false
+     code:'CO',
+     name:'Cologne',
+     size:'large',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'CN',
-	  name:'Constanta',
-	  size:'large',
-	  isCity: true,
-	  isPort:true
+     code:'CN',
+     name:'Constanta',
+     size:'large',
+     isCity: true,
+     isPort:true
    },
    {
-	  code:'DU',
-	  name:'Dublin',
-	  size:'small',
-	  isCity: true,
-	  isPort:true
+     code:'DU',
+     name:'Dublin',
+     size:'small',
+     isCity: true,
+     isPort:true
    },
    {
-	  code:'ED',
-	  name:'Edinburgh',
-	  size:'large',
-	  isCity: true,
-	  isPort:true
+     code:'ED',
+     name:'Edinburgh',
+     size:'large',
+     isCity: true,
+     isPort:true
    },
    {
-	  code:'FL',
-	  name:'Florence',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'FL',
+     name:'Florence',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'FR',
-	  name:'Frankfurt',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'FR',
+     name:'Frankfurt',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'GA',
-	  name:'Galatz',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'GA',
+     name:'Galatz',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'GW',
-	  name:'Galway',
-	  size:'small',
-	  isCity: true,
-	  isPort:true
+     code:'GW',
+     name:'Galway',
+     size:'small',
+     isCity: true,
+     isPort:true
    },
    {
-	  code:'GE',
-	  name:'Geneva',
-	  size:'small',
-	  isCity: true,
-	  isPort:false
+     code:'GE',
+     name:'Geneva',
+     size:'small',
+     isCity: true,
+     isPort:false
    },
    {
-	  code:'GO',
-	  size:'large',
-	  isPort:true,
-	  isCity: true,
-	  name:'Genoa'
+     code:'GO',
+     size:'large',
+     isPort:true,
+     isCity: true,
+     name:'Genoa'
    },
    {
-	  code:'GR',
-	  size:'small',
-	  isPort:false,
-	  isCity: true,
-	  name:'Granada'
+     code:'GR',
+     size:'small',
+     isPort:false,
+     isCity: true,
+     name:'Granada'
    },
    {
-	  code:'HA',
-	  size:'large',
-	  isPort:true,
-	  isCity: true,
-	  name:'Hamburg'
+     code:'HA',
+     size:'large',
+     isPort:true,
+     isCity: true,
+     name:'Hamburg'
    },
    {
-	  code:'KL',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Klausenburg'
+     code:'KL',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Klausenburg'
    },
    {
-	  code:'LE',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Le Havre'
+     code:'LE',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Le Havre'
    },
    {
-	  code:'LI',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Leipzig'
+     code:'LI',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Leipzig'
    },
    {
-	  code:'LS',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Lisbon'
+     code:'LS',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Lisbon'
    },
    {
-	  code:'LV',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Liverpool'
+     code:'LV',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Liverpool'
    },
    {
-	  code:'LO',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'London'
+     code:'LO',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'London'
    },
    {
-	  code:'MA',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Madrid'
+     code:'MA',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Madrid'
    },
    {
-	  code:'MN',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Manchester'
+     code:'MN',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Manchester'
    },
    {
-	  code:'MR',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Marseilles'
+     code:'MR',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Marseilles'
    },
    {
-	  code:'MI',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Milan'
+     code:'MI',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Milan'
    },
    {
-	  code:'MU',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Munich'
+     code:'MU',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Munich'
    },
    {
-	  code:'NA',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Nantes'
+     code:'NA',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Nantes'
    },
    {
-	  code:'NP',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Naples'
+     code:'NP',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Naples'
    },
    {
-	  code:'NU',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Nuremburg'
+     code:'NU',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Nuremburg'
    },
    {
-	  code:'PA',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Paris'
+     code:'PA',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Paris'
    },
    {
-	  code:'PL',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Plymouth'
+     code:'PL',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Plymouth'
    },
    {
-	  code:'PR',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Prague'
+     code:'PR',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Prague'
    },
    {
-	  code:'RO',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Rome'
+     code:'RO',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Rome'
    },
    {
-	  code:'SA',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Salonica'
+     code:'SA',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Salonica'
    },
    {
-	  code:'SN',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Santander'
+     code:'SN',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Santander'
    },
    {
-	  code:'SR',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Saragossa'
+     code:'SR',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Saragossa'
    },
    {
-	  code:'SJ',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Sarajevo'
+     code:'SJ',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Sarajevo'
    },
    {
-	  code:'SO',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Sofia'
+     code:'SO',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Sofia'
    },
    {
-	  code:'ST',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Strasbourg'
+     code:'ST',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Strasbourg'
    },
    {
-	  code:'SW',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Swansea'
+     code:'SW',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Swansea'
    },
    {
-	  code:'SZ',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Szeged'
+     code:'SZ',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Szeged'
    },
    {
-	  code:'TO',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Toulouse'
+     code:'TO',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Toulouse'
    },
    {
-	  code:'VA',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Valona'
+     code:'VA',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Valona'
    },
    {
-	  code:'VR',
-	  size:'large',
-	  isCity: true,
-	  isPort:true,
-	  name:'Varna'
+     code:'VR',
+     size:'large',
+     isCity: true,
+     isPort:true,
+     name:'Varna'
    },
    {
-	  code:'VE',
-	  size:'small',
-	  isCity: true,
-	  isPort:true,
-	  name:'Venice'
+     code:'VE',
+     size:'small',
+     isCity: true,
+     isPort:true,
+     name:'Venice'
    },
    {
-	  code:'VI',
-	  size:'large',
-	  isCity: true,
-	  isPort:false,
-	  name:'Vienna'
+     code:'VI',
+     size:'large',
+     isCity: true,
+     isPort:false,
+     name:'Vienna'
    },
    {
-	  code:'ZA',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Zagreb'
+     code:'ZA',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Zagreb'
    },
    {
-	  code:'ZU',
-	  size:'small',
-	  isCity: true,
-	  isPort:false,
-	  name:'Zurich'
+     code:'ZU',
+     size:'small',
+     isCity: true,
+     isPort:false,
+     name:'Zurich'
    },
    
    // Seas
    {
-	  code: 'NS',
-	  name: 'North Sea',
-	  isSea: true
+     code: 'NS',
+     name: 'North Sea',
+     isSea: true
    },
    {
-	  code: 'EC',
-	  name: 'English Channel',
-	  isSea: true
+     code: 'EC',
+     name: 'English Channel',
+     isSea: true
    },
    {
-	  code: 'IS',
-	  name: 'Irish Sea',
-	  isSea: true
+     code: 'IS',
+     name: 'Irish Sea',
+     isSea: true
    },
    {
-	  code: 'AO',
-	  name: 'Atlantic Ocean',
-	  isSea: true
+     code: 'AO',
+     name: 'Atlantic Ocean',
+     isSea: true
    },
    {
-	  code: 'BB',
-	  name: 'Bay of Biscay',
-	  isSea: true
+     code: 'BB',
+     name: 'Bay of Biscay',
+     isSea: true
    },
    {
-	  code: 'MS',
-	  name: 'Mediterranean Sea',
-	  isSea: true
+     code: 'MS',
+     name: 'Mediterranean Sea',
+     isSea: true
    },
    {
-	  code: 'TS',
-	  name: 'Tyrrhenian Sea',
-	  isSea: true
+     code: 'TS',
+     name: 'Tyrrhenian Sea',
+     isSea: true
    },
    {
-	  code: 'IO',
-	  name: 'Ionian Sea',
-	  isSea: true
+     code: 'IO',
+     name: 'Ionian Sea',
+     isSea: true
    },
    {
-	  code: 'AS',
-	  name: 'Adriatic Sea',
-	  isSea: true
+     code: 'AS',
+     name: 'Adriatic Sea',
+     isSea: true
    },
    {
-	  code: 'BS',
-	  name: 'Black Sea',
-	  isSea: true
+     code: 'BS',
+     name: 'Black Sea',
+     isSea: true
    }
 ];
 
@@ -718,7 +718,7 @@ var locationInfo = { };
 list.each(
    locationDetails,
    function( locationDetail ) {
-	  this[locationDetail.code] = locationDetail;
+     this[locationDetail.code] = locationDetail;
    },
    locationInfo
 );
@@ -729,20 +729,20 @@ var makeConnectionsDict = function( type ) {
    var result = { };
    
    var storeRoute = function( route ) {
-	  // bi-directional (to and from are somewhat misnomers)
-	  if ( route.type == type ) {
-		 if ( result[route.from] ) {
-			result[route.from].push( route.to );
-		 } else {
-			result[route.from] = [route.to];
-		 }
-		 
-		 if ( result[route.to] ) {
-			result[route.to].push( route.from );
-		 } else {			
-			result[route.to]   = [route.from];
-		 }
-	  }
+     // bi-directional (to and from are somewhat misnomers)
+     if ( route.type == type ) {
+       if ( result[route.from] ) {
+         result[route.from].push( route.to );
+       } else {
+         result[route.from] = [route.to];
+       }
+       
+       if ( result[route.to] ) {
+         result[route.to].push( route.from );
+       } else {         
+         result[route.to]   = [route.from];
+       }
+     }
    };
    
    list.each( routes, storeRoute );
@@ -769,17 +769,17 @@ var expandConnections = function( distance, connections, fromCode ) {
    var adjacentLocations = connections[fromCode];
    
    if ( distance > 0 && adjacentLocations ) {
-	  // apply a lesser distance for the next hop
-	  var getNextConnections = expandConnections.partialApply( distance-1, connections );
-	  
-	  // get the next list of connections for each of the adjacent locations
-	  var nextConnections = list.map( adjacentLocations, getNextConnections );
-	  
-	  // reduce these lists to the union over them all
-	  return list.reduce( nextConnections.concat( adjacentLocations ), list.union, [] );
+     // apply a lesser distance for the next hop
+     var getNextConnections = expandConnections.partialApply( distance-1, connections );
+     
+     // get the next list of connections for each of the adjacent locations
+     var nextConnections = list.map( adjacentLocations, getNextConnections );
+     
+     // reduce these lists to the union over them all
+     return list.reduce( nextConnections.concat( adjacentLocations ), list.union, [] );
    } else {
-	  // no connections for 0 distance, or no adjacent locations
-	  return [];
+     // no connections for 0 distance, or no adjacent locations
+     return [];
    }
 }
 

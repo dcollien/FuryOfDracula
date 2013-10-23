@@ -22,10 +22,10 @@ var revealTrailItem = function( state, trailIndex ) {
    
    assert( moveIndex >= 0, 'revealTrailItem: negative move index' );
    assert( move, 'revealTrailItem: move undefined. '
-	  + "\noldest: " +  oldestTrailIndex
-	  + "\ntrail index: " + trailIndex
-	  + "\nmove index: " + moveIndex
-	  + "\nmoves: " + draculaMoves );
+     + "\noldest: " +  oldestTrailIndex
+     + "\ntrail index: " + trailIndex
+     + "\nmove index: " + moveIndex
+     + "\nmoves: " + draculaMoves );
    
    // find all the indices in the past moves
    // that this move points back to (with hides and doublebacks)
@@ -33,7 +33,7 @@ var revealTrailItem = function( state, trailIndex ) {
    var indicesToUpdate = resolvedMoveItem.moveIndices;
    
    var revealIndex = function( index ) {
-	  state.hunterKnowledge[index] = draculaMoves[index];
+     state.hunterKnowledge[index] = draculaMoves[index];
    };
    
    // reveal these moves in the hunter's knowledge
@@ -48,9 +48,9 @@ var revealLocationInTrail = function( state, location ) {
    
    // collect the indices of the trail that match this location
    var collectTrailIndices = function( trailLocation, trailIndex ) {
-	  if ( trailLocation === location ) {
-		 trailIndices.push( trailIndex );
-	  }
+     if ( trailLocation === location ) {
+       trailIndices.push( trailIndex );
+     }
    }
    // all players can see which MOVE(s) in the trail correspond to [this] city
    list.each( trailLocations, collectTrailIndices );
@@ -64,7 +64,7 @@ var isDoublebackCode = function( moveCode ) {
    assert( moveCode, "moveCode undefined in isDoublebackCode" );
    var doubleBackNumber = parseInt( moveCode[1] );
    return (moveCode[0] == constants.doublebackPrefix)
-	  && !isNaN( doubleBackNumber );
+     && !isNaN( doubleBackNumber );
 };
 
 var getResolvedTrailItem = function( move, i, allMoves ) {
@@ -77,25 +77,25 @@ var getResolvedTrailItem = function( move, i, allMoves ) {
    
    var checkNext = true;
    while ( checkNext ) {
-	  checkNext = false;
-	  resolvedIndices.push( resolvedIndex );
-	  
-	  assert( resolvedMove, 'resolvedMove is undefined in getResolvedTrailItem' );
-	  if ( resolvedMove === constants.hideMove ) {
-		 // the current move is a hide move,
-		 // check the next one
-		 resolvedIndex -= 1;
-		 checkNext = true;
-	  } else if ( isDoublebackCode( resolvedMove ) ) {
-		 // the current move is a double back
-		 // check the double-backed-to location
-		 resolvedIndex -= parseInt( resolvedMove[1] );
-		 checkNext = true;
-	  }
-	  
-	  assert( resolvedIndex >= 0, 'negative resolvedIndex in getResolvedTrailItem' );
-	  
-	  resolvedMove = allMoves[resolvedIndex];
+     checkNext = false;
+     resolvedIndices.push( resolvedIndex );
+     
+     assert( resolvedMove, 'resolvedMove is undefined in getResolvedTrailItem' );
+     if ( resolvedMove === constants.hideMove ) {
+       // the current move is a hide move,
+       // check the next one
+       resolvedIndex -= 1;
+       checkNext = true;
+     } else if ( isDoublebackCode( resolvedMove ) ) {
+       // the current move is a double back
+       // check the double-backed-to location
+       resolvedIndex -= parseInt( resolvedMove[1] );
+       checkNext = true;
+     }
+     
+     assert( resolvedIndex >= 0, 'negative resolvedIndex in getResolvedTrailItem' );
+     
+     resolvedMove = allMoves[resolvedIndex];
    }
    
    assert( resolvedMove, 'undefined resolvedMove in resolveTrailLocations' );
@@ -114,12 +114,12 @@ var getResolvedMoveLocation = function( move, i, allMoves ) {
    replacementMove = getResolvedTrailItem( move, i, allMoves ).move;
    
    if ( replacementMove === constants.teleportCode ) {
-	  replacementMove = gameMap.castleDraculaCode;
+     replacementMove = gameMap.castleDraculaCode;
    } 
    
    assert( replacementMove, 'undefined replacementMove in resolveTrailLocations' );
    assert( list.contains( gameMap.locations, replacementMove ),
-	  'invalid resolution of location ' + replacementMove + ' in resolveTrailLocations' );
+     'invalid resolution of location ' + replacementMove + ' in resolveTrailLocations' );
    
    return replacementMove;
 };
@@ -148,7 +148,7 @@ var getOldestTrailIndex = function( state, isDraculaMovePhase ) {
    var oldestMoveIndex = state.draculaMoves.length - trailLength;
 
    if ( oldestMoveIndex < 0 ) {
-	  oldestMoveIndex = 0;
+     oldestMoveIndex = 0;
    }
    
    return oldestMoveIndex;
