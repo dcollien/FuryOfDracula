@@ -79,8 +79,8 @@ typedef struct {
 
 
 // pipe redirection
-void redirectStdout(void);
-void resetStdout(void);
+static void redirectStdout(void);
+static void resetStdout(void);
 
 static inputData_t *getInput( void );
 static void outputMove( void );
@@ -96,15 +96,16 @@ static char latestPlay[MOVE_SIZE] = "";
 static char latestMessage[MESSAGE_SIZE] = "";
 static int fd;
 static fpos_t pos;
+static bool isRedirected = false;
 
 int main( int argc, char *argv[] ) {
    HunterView gameState;
    
    inputData_t *inputData;
-   redirectStdout();
-   
+
    // we're using stdout for move output
    // user's stdout is redirected to stderr
+   redirectStdout();
    
    inputData = getInput( );
    gettimeofday(&startTime, NULL);
@@ -120,7 +121,9 @@ int main( int argc, char *argv[] ) {
    
    gettimeofday( &endTime, NULL );
    
+   // let stdout be used again
    resetStdout( );
+   // print out the move data
    outputMove( );
    
    freeInput( inputData );
@@ -128,20 +131,6 @@ int main( int argc, char *argv[] ) {
    return EXIT_SUCCESS;
 }
 
-void redirectStdout(void) {
-   fflush(stdout);
-   fgetpos(stdout, &pos);
-   fd = dup(fileno(stdout));
-   dup2(fileno(stderr),fileno(stdout));
-}
-
-void resetStdout(void) {
-   fflush(stdout);
-   dup2(fd, fileno(stdout));
-   close(fd);
-   clearerr(stdout);
-   fsetpos(stdout, &pos);
-}
 
 // Saves characters from play (and appends a terminator)
 // and saves characters from message (and appends a terminator)
@@ -155,6 +144,31 @@ void registerBestPlay ( char *play, playerMessage message ) {
 
 
 // Internal functions:
+
+// Redirect stdout to stderr, if not already redirected
+static void redirectStdout(void) {
+   if (!isRedirected) {
+      fflush(stdout);
+      fgetpos(stdout, &pos);
+      fd = dup(fileno(stdout));
+      dup2(fileno(stderr), fileno(stdout));
+      
+      isRedirected = true;	
+   }
+}
+
+// undo stdout redirect, if it's been redirected
+static void resetStdout(void) {
+   if (isRedirected) {
+      fflush(stdout);
+      dup2(fd, fileno(stdout));
+      close(fd);
+      clearerr(stdout);
+      fsetpos(stdout, &pos);
+      
+      isRedirected = false;
+   }
+}
 
 // Output the last registered move as JSON
 static void outputMove( void ) {
@@ -219,15 +233,15 @@ static inputData_t *getInput( void ) {
    // get JSON object from STDIN
    rootJSON = json_loadf( stdin, 0, &error );
    if ( rootJSON == NULL ) {
-     fprintf( stderr, "Input error: on line %d: %s\n", error.line, error.text );
-     exit( EXIT_FAILURE );
+      fprintf( stderr, "Input error: on line %d: %s\n", error.line, error.text );
+      exit( EXIT_FAILURE );
    }
    
    // get past plays string from the JSON object
    pastPlaysJSON = json_object_get( rootJSON, "pastPlays" );
    if ( !json_is_string( pastPlaysJSON ) ) {
-     fprintf( stderr, "Input error: pastPlays is not a string\n" );
-     exit( EXIT_FAILURE );
+      fprintf( stderr, "Input error: pastPlays is not a string\n" );
+      exit( EXIT_FAILURE );
    }
    
    pastPlays = (char *)json_string_value( pastPlaysJSON );
@@ -241,8 +255,8 @@ static inputData_t *getInput( void ) {
    // get messages array from the JSON object
    messagesJSON = json_object_get( rootJSON, "messages" );
    if ( !json_is_array( messagesJSON ) ) {
-     fprintf( stderr, "Input error: messages is not an array\n" );
-     exit( EXIT_FAILURE );
+      fprintf( stderr, "Input error: messages is not an array\n" );
+      exit( EXIT_FAILURE );
    }
    
    // allocate messages in struct
@@ -251,11 +265,11 @@ static inputData_t *getInput( void ) {
    inputData->messagesLength = messagesLength;
    
    for ( i = 0; i < messagesLength; i++ ) {
-     messageItemJSON = json_array_get( messagesJSON, i );
+      messageItemJSON = json_array_get( messagesJSON, i );
      
      if ( !json_is_string( messageItemJSON ) ) {
-       fprintf( stderr, "Input error: messages[%d] is not a string\n", i );
-       exit( EXIT_FAILURE );
+        fprintf( stderr, "Input error: messages[%d] is not a string\n", i );
+        exit( EXIT_FAILURE );
      }
      
      // copy over message string
@@ -299,9 +313,11 @@ static void startTimer( void ) {
 static void timesUpHandler( int signalID ) {
    // what to do if interrupted by timer
    if ( isTiming ) {
-	  gettimeofday( &endTime, NULL );
-	  resetStdout( );
-	  outputMove( );
-	  exit( EXIT_SUCCESS );
+      gettimeofday( &endTime, NULL );
+      // reset the stdout to be in use
+      resetStdout( );
+      // print out the move data
+      outputMove( );
+      exit( EXIT_SUCCESS );
    }
 }
