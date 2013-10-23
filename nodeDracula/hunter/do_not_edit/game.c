@@ -77,6 +77,11 @@ typedef struct {
    int messagesLength;
 } inputData_t;
 
+
+// pipe redirection
+void redirectStdout(void);
+void resetStdout(void);
+
 static inputData_t *getInput( void );
 static void outputMove( void );
 static void startTimer( void );
@@ -96,7 +101,7 @@ int main( int argc, char *argv[] ) {
    HunterView gameState;
    
    inputData_t *inputData;
-   no_stdout_for_you();
+   redirectStdout();
    
    // we're using stdout for move output
    // user's stdout is redirected to stderr
@@ -115,6 +120,7 @@ int main( int argc, char *argv[] ) {
    
    gettimeofday( &endTime, NULL );
    
+   resetStdout( );
    outputMove( );
    
    freeInput( inputData );
@@ -122,21 +128,19 @@ int main( int argc, char *argv[] ) {
    return EXIT_SUCCESS;
 }
 
-void no_stdout_for_you() {
+void redirectStdout(void) {
    fflush(stdout);
    fgetpos(stdout, &pos);
    fd = dup(fileno(stdout));
    dup2(fileno(stderr),fileno(stdout));
 }
 
-void stdout_for_you() {
-
+void resetStdout(void) {
    fflush(stdout);
    dup2(fd, fileno(stdout));
    close(fd);
    clearerr(stdout);
    fsetpos(stdout, &pos);
-
 }
 
 // Saves characters from play (and appends a terminator)
@@ -154,7 +158,6 @@ void registerBestPlay ( char *play, playerMessage message ) {
 
 // Output the last registered move as JSON
 static void outputMove( void ) {
-   stdout_for_you();
    double startTime_uS = startTime.tv_sec*USEC_TO_SEC + (startTime.tv_usec);
    double endTime_uS   = endTime.tv_sec*USEC_TO_SEC + (endTime.tv_usec);
    int usTaken = endTime_uS - startTime_uS;
@@ -180,7 +183,9 @@ static void outputMove( void ) {
    json_object_set_new( outputJSON, "timer", json_integer( usTaken ) );
    
    json_dumpf( outputJSON, stdout, 0 );
-   no_stdout_for_you();
+   
+   // encourage the clearing of the buffer, for good measure
+   printf("\n");
 }
 
 // Clean up memory allocated for the input data
@@ -295,6 +300,7 @@ static void timesUpHandler( int signalID ) {
    // what to do if interrupted by timer
    if ( isTiming ) {
 	  gettimeofday( &endTime, NULL );
+	  resetStdout( );
 	  outputMove( );
 	  exit( EXIT_SUCCESS );
    }
