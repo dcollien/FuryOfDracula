@@ -133,15 +133,26 @@ if [ $# -eq 1 ]; then
    cp $hunt_comp_round_dir/*compilation_log $round_name/.
 
    cd $round_name
+   #add compilation logs to right place
    mkdir compilation_logs
+   chmod 755 compilation_logs
    mv `ls | grep compilation_log` compilation_logs/.                
    cp `find $hunt_comp_round_dir | grep compilation_log` compilation_logs/.
+   chmod 700 compilation_logs/*
+   
+   #create directory to log rounds
+   mkdir logs;
+   chmod 755 logs
+   touch logs/who_ran_in_what.log
+   chmod 700 logs/*
+
+   #prepare the public html folder
+   mkdir ~/public_html/13s2.dracula/$round_name
+   chmod 755 ~/public_html/13s2.dracula/$round_name
+   symlink -s $base_dir/$round_name/logs ~/public_html/13s2.dracula/logs
+   symlink -s $base_dir/$round_name/compilation_logs ~/public_html/13s2.dracula/compilation_logs
 
    chmod +x *.elf
-
-   mkdir "logs";
-   touch logs/who_ran_in_what.log
-
    for (( i=0; $i<1000; i++ )); do
       ls -d | sort -R
       #TODO(damonkey): make this more evenly distributed
@@ -164,7 +175,8 @@ if [ $# -eq 1 ]; then
                "$PWD/$hunter3" \
                "timeout 90 java -ea $drac.DraculaRunner" \
                         | sed "s/^/\t/g" > $log_file
-
+      chmod 700 $log_file
    done;
    cd ..
 fi
+

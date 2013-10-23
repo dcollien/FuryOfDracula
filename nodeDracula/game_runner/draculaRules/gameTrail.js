@@ -137,7 +137,7 @@ var getDraculaLocations = function( state ) {
 
 // Index in draculaMoves which is the oldest in the trail
 var getOldestTrailIndex = function( state ) {
-   var oldestMoveIndex = state.draculaMoves.length - constants.trailFullSize + 1;
+   var oldestMoveIndex = state.draculaMoves.length - constants.trailFullSize;
    if ( oldestMoveIndex < 0 ) {
 	  oldestMoveIndex = 0;
    }
