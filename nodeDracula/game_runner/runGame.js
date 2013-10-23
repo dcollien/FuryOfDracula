@@ -1,7 +1,8 @@
 var fs = require( 'fs' );
 var path = require( 'path' );
 
-var spawn = require( 'child_process' ).spawn;
+var cp = require( 'child_process' );
+var spawn = cp.spawn;
 
 var list = require( './jsFun/listLike' );
 var assert = require( './jsFun/assert' );
@@ -25,45 +26,44 @@ function runPlayer( playerProgram, programInput, callback, args ) {
    // store stdout
    var writeOut = function( data ) {
       if ( !!data ) {
-         stdout += data;
+         stdout += data.toString();
       }
    };
    
    // store stderr
    var writeErr = function( data ) {
       if ( !!data ) {
-         stderr += data;
+         stderr += data.toString();
       }
    }
+   
    assert( playerProgram, 'playerProgram undefined. in runPlayer' );
    var playerProcess = spawn( playerProgram, args );
    
    playerProcess.on( 'exit', function( code, signal ) {
-
-      if (code != 0) {
-         console.log("Program exited with exit code " + code);
+      if (code !== 0) {
+         console.log("Program exited with code: " + code);
       }
-
+   });
+   
+   playerProcess.on( 'close', function( code, signal ) {
       var outputObject;
       // expect JSON output on stdout, normal output on stderr
-      console.log("STDOUT: " + stdout + "");
-      console.log("STDERR: " + stderr + ""); 
+      console.log("Output: " + stderr + ""); 
 
       try {
          outputObject = JSON.parse(stdout);
       } catch( e ) {
-         console.log("Not valid JSON: \""+ stdout + "\"");
+         console.log("Output corrupted: \""+ stdout + "\"");
          console.log(e);
          outputObject = { };
       }
       
+      console.log('Move: ', JSON.stringify(outputObject, null, 2));
+      
       callback( outputObject, stderr );
    } );
    
-   playerProcess.on( 'SIGSEGV', function () {
-      console.log('SEG FAULT!!! FAIL! Silly undergrads...');
-   });
-
    playerProcess.stdout.on( 'data', writeOut );
    playerProcess.stderr.on( 'data', writeErr );
    
