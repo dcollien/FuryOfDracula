@@ -136,8 +136,15 @@ var getDraculaLocations = function( state ) {
 })( );
 
 // Index in draculaMoves which is the oldest in the trail
-var getOldestTrailIndex = function( state ) {
+var getOldestTrailIndex = function( state, isDraculaMovePhase ) {
    var oldestMoveIndex = state.draculaMoves.length - constants.trailFullSize;
+
+   if (isDraculaMovePhase) {
+      // in dracula's move phase, the trail is one less
+      // (he hasn't made a move yet)
+      oldestMoveIndex -= 1;
+   }
+
    if ( oldestMoveIndex < 0 ) {
 	  oldestMoveIndex = 0;
    }
@@ -151,17 +158,17 @@ var getOldestTrailIndex = function( state ) {
    assert( getOldestTrailIndex( tmpState ) == 2, 'getOldestTrailIndex 2' );
 })( );
 
-var getTrailLocations = function( state ) {
+var getTrailLocations = function( state, isDraculaMovePhase ) {
    var resolvedMoves = getDraculaLocations( state );
-   return resolvedMoves.slice( getOldestTrailIndex( state ) );
+   return resolvedMoves.slice( getOldestTrailIndex( state, isDraculaMovePhase ) );
 };
 
-var getTrailMoves = function( state ) {
-   return state.draculaMoves.slice( getOldestTrailIndex( state ) );
+var getTrailMoves = function( state, isDraculaMovePhase ) {
+   return state.draculaMoves.slice( getOldestTrailIndex( state, isDraculaMovePhase ) );
 };
 
-var getTrailActions = function( state ) {
-   return state.draculaActions.slice( getOldestTrailIndex( state ) );
+var getTrailActions = function( state, isDraculaMovePhase ) {
+   return state.draculaActions.slice( getOldestTrailIndex( state, isDraculaMovePhase ) );
 };
 
 module.exports = {
