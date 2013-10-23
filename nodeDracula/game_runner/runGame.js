@@ -42,7 +42,11 @@ function runPlayer( playerProgram, programInput, callback, args ) {
    
    playerProcess.on( 'exit', function( code, signal ) {
       if (code !== 0) {
-         console.log("Program exited with code: " + code);
+         if (code == 42) {
+            console.log("Program was terminated after maximum allowed time.");
+         } else {
+            console.log("Program exited with code: " + code);
+         }
       }
       if (signal !== null) {
          console.log("Received signal: " + signal.toString());
