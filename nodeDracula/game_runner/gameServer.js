@@ -4,7 +4,7 @@ var url = require('url');
 
 //var address = "108.166.126.128";
 var address = "0.0.0.0";
-var port = 2080;
+var port = 9024;
 
 var gameRunner = require( './gameRunner' );
 
