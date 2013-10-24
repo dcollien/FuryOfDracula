@@ -26,7 +26,7 @@ module.exports = {
    draculaActionPlacedVampire: 'V',
    
    roundActionTrapMalfunction: 'M',
-   roundActionVampireMature: 'V',
+   roundActionVampireMatured: 'V',
    roundActionOther: '.',
    
    // The score decreases by 6 each time a Hunter

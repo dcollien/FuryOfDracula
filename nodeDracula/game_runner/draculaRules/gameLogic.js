@@ -33,12 +33,12 @@ function doHunterMove( state, newLocation ) {
    assert( locationInfo, 'no information for location ' + newLocation );
 
    if ( locationInfo.isCity ) {
-     // If the Hunter is in any city in Dracula's trail then all players can
-     // see which MOVE(s) in the trail correspond to that city
+      // If the Hunter is in any city in Dracula's trail then all players can
+      // see which MOVE(s) in the trail correspond to that city
 
-     if ( list.contains( gameTrail.getTrailLocations( state ), newLocation ) ) {
-       gameTrail.revealLocationInTrail( state, newLocation );
-     }
+      if ( list.contains( gameTrail.getTrailLocations( state ), newLocation ) ) {
+         gameTrail.revealLocationInTrail( state, newLocation );
+      }
    }
 
    // the Hunter encounters, in sequence,
@@ -54,33 +54,33 @@ function doHunterMove( state, newLocation ) {
    assert( draculasEncountered <= 1, 'draculas encountered: ' + draculasEncountered + ' at: ' + newLocation );
 
    if ( hunter.lifePoints <= 0 ) {
-     // Whenever a Hunter is reduced to 0 or less life points they
-     // are instantly automagically teleported to the Hospital
-     // of St Joseph & St Mary
-     // (and can do nothing else for the remainder of their turn.)
-     state.currentPlayer.location = gameMap.hospitalCityCode;
-     hunter.lifePoints = constants.hunterMaxLifePoints;
+      // Whenever a Hunter is reduced to 0 or less life points they
+      // are instantly automagically teleported to the Hospital
+      // of St Joseph & St Mary
+      // (and can do nothing else for the remainder of their turn.)
+      state.currentPlayer.location = gameMap.hospitalCityCode;
+      hunter.lifePoints = constants.hunterMaxLifePoints;
 
-     // The score decreases by 6 each time a Hunter
-     // is teleported to the hospital.
-     state.score -= constants.hospitalTeleportScorePenalty;
+      // The score decreases by 6 each time a Hunter
+      // is teleported to the hospital.
+      state.score -= constants.hospitalTeleportScorePenalty;
    } else {
 
-     // If the Hunter is in the same city or sea they were in last turn
-     if ( hunter.location === newLocation ) {
-       // A Hunter gains 3 life points each time they rest in a city
-       hunter.lifePoints += constants.hunterRestReward;
+      // If the Hunter is in the same city or sea they were in last turn
+      if ( hunter.location === newLocation ) {
+        // A Hunter gains 3 life points each time they rest in a city
+        hunter.lifePoints += constants.hunterRestReward;
 
-       // Hunters are not permitted to exceed 9 life points
-       if ( hunter.lifePoints > constants.hunterMaxLifePoints ) {
-         hunter.lifePoints = constants.hunterMaxLifePoints;
-       }
+        // Hunters are not permitted to exceed 9 life points
+         if ( hunter.lifePoints > constants.hunterMaxLifePoints ) {
+            hunter.lifePoints = constants.hunterMaxLifePoints;
+         }
 
-       // count consecutive rests
-       // reset at start of round
-       state.hunterRests += 1;
+         // count consecutive rests
+         // reset at start of round
+         state.hunterRests += 1;
 
-       assert( state.hunterRests <= 4, 'too many rests' );
+         assert( state.hunterRests <= 4, 'too many rests' );
      }
 
 
@@ -92,21 +92,21 @@ function doHunterMove( state, newLocation ) {
    var pastMoves = state.hunterMoves[state.currentPlayerNumber];
 
    if ( !pastMoves ) {
-     // create an array for this player
-     state.hunterMoves[state.currentPlayerNumber] = [];
-     pastMoves = state.hunterMoves[state.currentPlayerNumber];
+      // create an array for this player
+      state.hunterMoves[state.currentPlayerNumber] = [];
+      pastMoves = state.hunterMoves[state.currentPlayerNumber];
    }
 
    pastMoves.push( {
-     location: newLocation,
-     trapsEncountered: trapsEncountered,
-     vampiresEncountered: vampiresEncountered,
-     draculasEncountered: draculasEncountered
+      location: newLocation,
+      trapsEncountered: trapsEncountered,
+      vampiresEncountered: vampiresEncountered,
+      draculasEncountered: draculasEncountered
    } );
 
    assert( hunter.location === gameMap.hospitalCityCode || hunter.location === newLocation,
-     "Hunter's location invalid. in doHunterMove: "
-     + hunter.location + ' != ' + newLocation );
+      "Hunter's location invalid. in doHunterMove: "
+      + hunter.location + ' != ' + newLocation );
    assert( state.hunterMoves[state.currentPlayerNumber].length != 0, "Zero length player's moves. doHunterMove" );
 }
 
@@ -116,12 +116,13 @@ function doDraculaMove( state, move ) {
 
    // Teleport dracula when nowhere to go
    if ( !gameMoves.canDraculaMove( state ) ) {
-     // dracula can't move
-     move = constants.teleportCode;
+      // dracula can't move
+      move = constants.teleportCode;
    } else {
-     assert( gameMoves.isLegalDraculaMove( state, move ), 'illegal move ' + move + ' in doDraculaMove' );
+      assert( gameMoves.isLegalDraculaMove( state, move ), 'illegal move ' + move + ' in doDraculaMove' );
    }
 
+   /* MOVE PHASE */
    var trailActions = gameTrail.getTrailActions( state );
    var trailLocations = gameTrail.getTrailLocations( state );
    var trailMoves = gameTrail.getTrailMoves( state );
@@ -129,54 +130,59 @@ function doDraculaMove( state, move ) {
    var roundAction = constants.roundActionOther;
 
    if ( trailLocations.length === constants.trailFullSize ) {
-     // If the trail is already full (ie has 6 moves in it)
-     // then the oldest MOVE in the trail is first removed from the trail.
+      // If the trail is already full (ie has 6 moves in it)
+      // then the oldest MOVE in the trail is first removed from the trail.
 
-     oldestActionInTrail = trailActions[0];
-     oldestLocationInTrail = trailLocations[0];
+      oldestActionInTrail = trailActions[0];
+      oldestLocationInTrail = trailLocations[0];
 
-     if ( oldestActionInTrail === constants.draculaActionPlacedTrap ) {
-       // if a trap was placed here
+      if ( oldestActionInTrail === constants.draculaActionPlacedTrap ) {
+         // if a trap was placed here
 
-       var traps = state.trapsForCity[oldestLocationInTrail];
+         var traps = state.trapsForCity[oldestLocationInTrail];
 
-       // is the trap still there
-       if ( traps && (state.round - constants.trailFullSize) === traps[0] ) {
+         // is the trap still there
+         if ( traps && (state.round - constants.trailFullSize) === traps[0] ) {
 
-         // Remove malfunctioned trap from city
-         state.trapsForCity[oldestLocationInTrail].shift( );
+            // Remove malfunctioned trap from city
+            state.trapsForCity[oldestLocationInTrail].shift( );
 
-         roundAction = constants.roundActionTrapMalfunction;
-       }
-     } else if ( oldestActionInTrail === constants.draculaActionPlacedVampire ) {
-       // if a vampire was placed here
+            roundAction = constants.roundActionTrapMalfunction;
+         }
+      } else if ( oldestActionInTrail === constants.draculaActionPlacedVampire ) {
+         // if a vampire was placed here
 
-       var vampires = state.vampiresForCity[oldestLocationInTrail];
+         var vampires = state.vampiresForCity[oldestLocationInTrail];
 
-       // vampire hasn't been killed
-       if ( vampires && (state.round - constants.trailFullSize) === vampires[0] ) {
-         // remove the vampire
-         state.vampiresForCity[oldestLocationInTrail].shift( );
+         // vampire hasn't been killed
+         if ( vampires && (state.round - constants.trailFullSize) === vampires[0] ) {
+            // remove the vampire
+            state.vampiresForCity[oldestLocationInTrail].shift( );
 
-         // The score decreases by 13 each time a Vampire matures (i.e. falls off the trail)
-         state.score -= constants.vampireMatureScorePenalty;
-         roundAction = constants.roundActionVampireMature;
-       }
-     }
+            // The score decreases by 13 each time a Vampire matures (i.e. falls off the trail)
+            state.score -= constants.vampireMatureScorePenalty;
+            roundAction = constants.roundActionVampireMatured;
+         }
+      }
 
-     // The Hunters can see whenever the sixth move in the trail is a HIDE move.
-     // This does not mean that they learn the nature of the move to which it relates
-     if ( trailMoves[0] === constants.hideMove ) {
-       var oldestTrailMoveIndex = gameTrail.getOldestTrailIndex( state );
-       state.hunterKnowledge[oldestTrailMoveIndex] = state.draculaMoves[oldestTrailMoveIndex];
-     }
+      // The Hunters can see whenever the sixth move in the trail is a HIDE move.
+      // This does not mean that they learn the nature of the move to which it relates
+      if ( trailMoves[0] === constants.hideMove ) {
+         var oldestTrailMoveIndex = gameTrail.getOldestTrailIndex( state );
+         state.hunterKnowledge[oldestTrailMoveIndex] = state.draculaMoves[oldestTrailMoveIndex];
+      }
    }
 
-   state.roundActions.push( roundAction );
 
    // Dracula's current MOVE is placed in the trail.
    assert( move, 'move is undefined' );
    state.draculaMoves.push( move );
+
+
+   
+   /* ACTION PHASE */
+
+   state.roundActions.push( roundAction );
 
    // Resolve locations
    var newTrailLocations = gameTrail.getTrailLocations( state );
@@ -192,38 +198,38 @@ function doDraculaMove( state, move ) {
    var draculaAction;
 
    if ( locationInfo.isSea ) {
-     // If Dracula is at sea he loses two blood points.
-     draculaAction = constants.draculaActionAtSea;
-     dracula.bloodPoints -= constants.draculaSeaPenalty;
+      // If Dracula is at sea he loses two blood points.
+      draculaAction = constants.draculaActionAtSea;
+      dracula.bloodPoints -= constants.draculaSeaPenalty;
    } else if ( locationInfo.isCity ) {
-     // If he is in a city Dracula places an Encounter in that city.
+      // If he is in a city Dracula places an Encounter in that city.
 
-     // Dracula places an immature Vampire if he is in a city
-     // AND if the round whose number is divisible by 13 (ie in round 0, then in round 13, then 26, and so on).
-     var isVampireDrop = ((state.round % constants.vampireInterval) == 0);
-     if ( isVampireDrop ) {
-       draculaAction = constants.draculaActionPlacedVampire;
-       // add vampire to the current city
-       if ( !state.vampiresForCity[dracula.location] ) {
-         state.vampiresForCity[dracula.location] = [];
-       }
+      // Dracula places an immature Vampire if he is in a city
+      // AND if the round whose number is divisible by 13 (ie in round 0, then in round 13, then 26, and so on).
+      var isVampireDrop = ((state.round % constants.vampireInterval) == 0);
+      if ( isVampireDrop ) {
+         draculaAction = constants.draculaActionPlacedVampire;
+         // add vampire to the current city
+         if ( !state.vampiresForCity[dracula.location] ) {
+            state.vampiresForCity[dracula.location] = [];
+         }
 
-       state.vampiresForCity[dracula.location].push( state.round );
-     } else {
-       // Otherwise he places a Trap.
-       draculaAction = constants.draculaActionPlacedTrap;
-       // add trap to the current city
-       if ( !state.trapsForCity[dracula.location] ) {
-         state.trapsForCity[dracula.location] = [];
-       }
-       state.trapsForCity[dracula.location].push( state.round );
-     }
+         state.vampiresForCity[dracula.location].push( state.round );
+      } else {
+         // Otherwise he places a Trap.
+         draculaAction = constants.draculaActionPlacedTrap;
+         // add trap to the current city
+         if ( !state.trapsForCity[dracula.location] ) {
+            state.trapsForCity[dracula.location] = [];
+         }
+         state.trapsForCity[dracula.location].push( state.round );
+      }
    }
 
    if ( locationInfo.isCastleDracula && !state.isOver ) {
-     // Dracula regains 10 blood points if he is in Castle Dracula at the end of his turn
-     // and has not yet been defeated
-     state.dracula.bloodPoints += constants.draculaCastleReward;
+      // Dracula regains 10 blood points if he is in Castle Dracula at the end of his turn
+      // and has not yet been defeated
+      state.dracula.bloodPoints += constants.draculaCastleReward;
    }
 
    // The score is reduced by 1 point
@@ -236,16 +242,16 @@ function doDraculaMove( state, move ) {
 
    // Update hunter knowledge of this move
    if ( gameTrail.isDoublebackCode( move ) ) {
-     // Hunters know he has made a DOUBLE_BACK
-     // and which item in the trail he has doubled back to
-     // but not the location
-     knowledgeItem = move;
+      // Hunters know he has made a DOUBLE_BACK
+      // and which item in the trail he has doubled back to
+      // but not the location
+      knowledgeItem = move;
    } else if ( locationInfo.isCity ) {
-     // otherwise if dracula's in a city, unknown city
-     knowledgeItem = constants.unknownCityCode;
+      // otherwise if dracula's in a city, unknown city
+      knowledgeItem = constants.unknownCityCode;
    } else if ( locationInfo.isSea ) {
-     // unknown sea
-     knowledgeItem = constants.unknownSeaCode;
+      // unknown sea
+      knowledgeItem = constants.unknownSeaCode;
    }
 
    assert( knowledgeItem, 'knowledgeItem undefined' );
@@ -253,9 +259,9 @@ function doDraculaMove( state, move ) {
 
    if ( isHunterInLocation( state, dracula.location )
      || dracula.location === gameMap.castleDraculaCode ) {
-     // The Hunters can see Dracula's location whenever he ends his turn in his
-     // castle, or in a city currently occupied by a Hunter.
-     gameTrail.revealTrailItem( state, mostRecentTrailIndex );
+      // The Hunters can see Dracula's location whenever he ends his turn in his
+      // castle, or in a city currently occupied by a Hunter.
+      gameTrail.revealTrailItem( state, mostRecentTrailIndex );
    }
 }
 
@@ -263,7 +269,7 @@ function isHunterInLocation( state, location ) {
    var hunters = state.hunters;
 
    var extractLocation = function( hunter ) {
-     return hunter.location;
+      return hunter.location;
    };
 
    var hunterLocations = list.map( hunters, extractLocation );

@@ -46,7 +46,7 @@ function doHunterVampireEncounters( state, newLocation ) {
      // it is killed instantly with no effect to the Hunter.  (well done!)
      numEncounters += 1;
      
-     // kill the oldest vampire
+     // kill the oldest vampire in that city
      state.vampiresForCity[newLocation].shift( );
    }
    
