@@ -150,8 +150,8 @@ var getCandidateDraculaMoves = function( state ) {
 
 var canDraculaMove = function( state ) {
    if ( state.round == 0 ) {
-     // dracula can always move on the first turn
-     return true;
+      // dracula can always move on the first turn
+      return true;
    }
    
    var candidateMoves = getCandidateDraculaMoves( state );

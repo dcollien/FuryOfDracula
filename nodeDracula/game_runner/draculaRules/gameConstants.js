@@ -3,11 +3,11 @@ module.exports = {
    hideMove: 'HI',
    doublebackPrefix: 'D',
    doublebackMoves: [
-     'D1',
-     'D2',
-     'D3',
-     'D4',
-     'D5'
+      'D1',
+      'D2',
+      'D3',
+      'D4',
+      'D5'
    ],
    
    draculaPlayerNumber: 4,

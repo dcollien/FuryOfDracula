@@ -41,55 +41,55 @@ var freeIds = [
 function checkGames( ) {
    // console.log( "Checking games" );
    for ( var gameId in games ) {
-     if ( games.hasOwnProperty( gameId ) ) {
-       // console.log( "Game " + gameId + " interval: " + games[gameId].timeChecks );
-       if ( games[gameId].timeChecks >= maxGameTimechecks ) {
-         // game id is allowed to be recycled if needed
-         endGame( gameId );
-         console.log( gameId + ' Expired' );
-       } else {
-         games[gameId].timeChecks += 1;
-       }
-     }
+      if ( games.hasOwnProperty( gameId ) ) {
+         // console.log( "Game " + gameId + " interval: " + games[gameId].timeChecks );
+         if ( games[gameId].timeChecks >= maxGameTimechecks ) {
+            // game id is allowed to be recycled if needed
+            endGame( gameId );
+            console.log( gameId + ' Expired' );
+         } else {
+            games[gameId].timeChecks += 1;
+         }
+      }
    }
 }
 
 var startGame = function( password ) {
    if ( freeIds.length > 0 ) {
-     var gameId = freeIds.shift( );
-     
-     console.log( 'Game ' + gameId + ' created with password ' + password );
-     
-     var game = new gameRunner( );
-     
-     game.setRules( gameRules );
-     
-     games[gameId] = {
-       password: password,
-       game: game,
-       timeChecks: 0,
-       isOver: false
-     };
-     
-     game.on( 'playerTurn', function( playerIndex, playerInput ) {
-       if ( playerIndex == 4 ) {
-         game.playMove( );
-       } else {
-         console.log( "Waiting for player " + playerIndex + " turn on game " + gameId );
-       }
-     } );
-     
-     game.on( 'playerDisqualified', function( playerIndex, move ) {
-       console.log( "Player " + playerIndex + " disqualified on game " + gameId );
-     } );
-     
-     game.on( 'gameOver', function( ) {
-       endGame( gameId );
-     } );
-     
-     game.run( );
-     
-     return gameId;
+      var gameId = freeIds.shift( );
+      
+      console.log( 'Game ' + gameId + ' created with password ' + password );
+      
+      var game = new gameRunner( );
+      
+      game.setRules( gameRules );
+      
+      games[gameId] = {
+         password: password,
+         game: game,
+         timeChecks: 0,
+         isOver: false
+      };
+      
+      game.on( 'playerTurn', function( playerIndex, playerInput ) {
+         if ( playerIndex == 4 ) {
+            game.playMove( );
+         } else {
+            console.log( "Waiting for player " + playerIndex + " turn on game " + gameId );
+         }
+      } );
+      
+      game.on( 'playerDisqualified', function( playerIndex, move ) {
+         console.log( "Player " + playerIndex + " disqualified on game " + gameId );
+      } );
+      
+      game.on( 'gameOver', function( ) {
+         endGame( gameId );
+      } );
+      
+      game.run( );
+      
+      return gameId;
    }
    
    return null;
@@ -104,61 +104,61 @@ var endGame = function( gameId ) {
 /**
  * Protocol:
  *    GET query strings for action:
- *       action=newGame:
- *          requires password=myPasswordHere
- *          creates a game with the given password
- *          can return:
- *             Ok
- *             <gameId> (this is the assigned gameId)
- *          or:
- *             NoFreeGames
- *       action=request:
- *          requires gameId=myGameId, password=myGamePassword, player=myPlayerIndex (0-3)
- *          can return:
- *             Ok
- *             <PastPlays>
- *             <Message>
- *             <Message>... etc.
- *          or:
- *             Disqualified
- *             (should never happen on this server)
- *       or:
- *          WaitTurn
- *          (if it's not your turn yet)
+ *         action=newGame:
+ *              requires password=myPasswordHere
+ *              creates a game with the given password
+ *              can return:
+ *                Ok
+ *                <gameId> (this is the assigned gameId)
+ *              or:
+ *                NoFreeGames
+ *         action=request:
+ *              requires gameId=myGameId, password=myGamePassword, player=myPlayerIndex (0-3)
+ *              can return:
+ *                Ok
+ *                <PastPlays>
+ *                <Message>
+ *                <Message>... etc.
+ *              or:
+ *                Disqualified
+ *                (should never happen on this server)
+ *         or:
+ *              WaitTurn
+ *              (if it's not your turn yet)
  *    action=play:
- *       requires:
- *          gameId=myGameId
- *          password=myGamePassword
- *          player=myPlayerIndex
- *          move=myPlayerMove
- *          message=myPlayerMessage
- *       can return:
- *          MoveRequired
- *          (no move given)
- *       or:
- *          IllegalMove
- *          (move isn't legal)
- *       or:
- *          NotYourTurn
- *          (not your turn in the game yet)
- *       or:
- *          Ok
- *          (it worked)
+ *         requires:
+ *              gameId=myGameId
+ *              password=myGamePassword
+ *              player=myPlayerIndex
+ *              move=myPlayerMove
+ *              message=myPlayerMessage
+ *         can return:
+ *              MoveRequired
+ *              (no move given)
+ *         or:
+ *              IllegalMove
+ *              (move isn't legal)
+ *         or:
+ *              NotYourTurn
+ *              (not your turn in the game yet)
+ *         or:
+ *              Ok
+ *              (it worked)
  *    action=who:
- *       requires:
- *          gameId=myGameId
- *          password=myGamePassword
- *       returns:
- *          Ok
- *          <playerIndex>
- *          (the player index for the current turn)
+ *         requires:
+ *              gameId=myGameId
+ *              password=myGamePassword
+ *         returns:
+ *              Ok
+ *              <playerIndex>
+ *              (the player index for the current turn)
  *    action=cancel:
- *       requires:
- *          gameId=myGameId
- *          password=myGamePassword
- *       can return:
- *          GameCancelled
- *          (game id is now free to be used for a new game)
+ *         requires:
+ *              gameId=myGameId
+ *              password=myGamePassword
+ *         can return:
+ *              GameCancelled
+ *              (game id is now free to be used for a new game)
  *
  * You may get:
  *    BadPassword
@@ -181,9 +181,9 @@ var endGame = function( gameId ) {
 
 var respond = function( response, output, isJavascript ) {
    if ( isJavascript ) {
-     response.write( "gameResponse( " + JSON.stringify( output ) + " );" );
+      response.write( "gameResponse( " + JSON.stringify( output ) + " );" );
    } else {
-     response.write( output );
+      response.write( output );
    }
    response.end( );
 };
@@ -192,45 +192,45 @@ var respond = function( response, output, isJavascript ) {
 var handlePlayer = function( response, input, game ) {
    var output = "";
    if ( input.action == 'who' ) {
-     
-     output += 'Ok\n';
-     output += game.playerIndex + '\n';
-     respond( response, output, input.javascript );
+      
+      output += 'Ok\n';
+      output += game.playerIndex + '\n';
+      respond( response, output, input.javascript );
    } else if ( input.action == 'request' ) {
-     if ( game.isPlayersTurn( input.player ) ) {
-       output += 'Ok\n';
-       
-       var playerInput = game.getPlayerInput( );
-       output += playerInput.pastPlays + '\n';
-       
-       for ( var i in playerInput.messages ) {
-         output += playerInput.messages[i] + '\n';
-       }
-       
-       respond( response, output, input.javascript );
-     } else if ( game.isDisqualified[ input.player ] ) {
-       respond( response, 'Disqualified\n', input.javascript );
-     } else {
-       respond( response, 'WaitTurn\n', input.javascript );
-     }
-   } else if ( input.action == 'play' ) {
-     if ( game.isPlayersTurn( input.player ) ) {
-       if ( input.move && input.message ) {
-         var move = { move: input.move, message: input.message };
-         if ( game.isLegalMove( move ) ) {
-            game.playMove( move );
-            respond( response, 'Ok\n', input.javascript );
-         } else {
-            respond( response, 'IllegalMove\n', input.javascript );
+      if ( game.isPlayersTurn( input.player ) ) {
+         output += 'Ok\n';
+         
+         var playerInput = game.getPlayerInput( );
+         output += playerInput.pastPlays + '\n';
+         
+         for ( var i in playerInput.messages ) {
+            output += playerInput.messages[i] + '\n';
          }
-       } else {
-         respond( response, 'MoveRequired\n', input.javascript );
-       }
-     } else {
-       respond( response, 'NotYourTurn\n', input.javascript );
-     }
+         
+         respond( response, output, input.javascript );
+      } else if ( game.isDisqualified[ input.player ] ) {
+         respond( response, 'Disqualified\n', input.javascript );
+      } else {
+         respond( response, 'WaitTurn\n', input.javascript );
+      }
+   } else if ( input.action == 'play' ) {
+      if ( game.isPlayersTurn( input.player ) ) {
+         if ( input.move && input.message ) {
+            var move = { move: input.move, message: input.message };
+            if ( game.isLegalMove( move ) ) {
+               game.playMove( move );
+               respond( response, 'Ok\n', input.javascript );
+            } else {
+               respond( response, 'IllegalMove\n', input.javascript );
+            }
+         } else {
+            respond( response, 'MoveRequired\n', input.javascript );
+         }
+      } else {
+         respond( response, 'NotYourTurn\n', input.javascript );
+      }
    } else {
-     respond( response, "InvalidAction\n", input.javascript );
+      respond( response, "InvalidAction\n", input.javascript );
    }
 };
 
@@ -238,46 +238,46 @@ http.createServer( function ( request, response ) {
    input = url.parse( request.url, true ).query;
    
    response.writeHead(
-     200,
-     {
-       'Content-Type': 'text/plain',
-       'Access-Control-Allow-Origin': '*'
-     }
+      200,
+      {
+         'Content-Type': 'text/plain',
+         'Access-Control-Allow-Origin': '*'
+      }
    );
    
    if ( input.action == 'newGame' && input.password ) {
-     // make a new game
-     var gameId = startGame( input.password );
-     if ( gameId ) {
-       // a free slot
-       respond( response, 'Ok\n' + gameId + '\n', input.javascript );
-     } else {
-       // no free slot
-       respond( response, 'NoFreeGames\n', input.javascript );
-     }
+      // make a new game
+      var gameId = startGame( input.password );
+      if ( gameId ) {
+         // a free slot
+         respond( response, 'Ok\n' + gameId + '\n', input.javascript );
+      } else {
+         // no free slot
+         respond( response, 'NoFreeGames\n', input.javascript );
+      }
    } else if ( input.gameId ) {
-     
-     // check password
-     if ( games[input.gameId] && games[input.gameId].password === input.password ) {
-       
-       // make alive
-       games[input.gameId].checkInterval = 0;
-       
-       if ( games[input.gameId].isOver ) {
-         var gameOut = games[input.gameId].game.getOutput( );
-         respond( response, 'GameOver\n', input.javascript );
-       } else if ( input.action == 'cancel' ) {
-         endGame( input.gameId );
-         respond( response, 'GameCancelled\n', input.javascript );
-       } else {
-         // do your thang
-         handlePlayer( response, input, games[input.gameId].game );
-       }
-     } else {
-       respond( response, 'BadPassword\n', input.javascript );
-     }
+      
+      // check password
+      if ( games[input.gameId] && games[input.gameId].password === input.password ) {
+         
+         // make alive
+         games[input.gameId].checkInterval = 0;
+         
+         if ( games[input.gameId].isOver ) {
+            var gameOut = games[input.gameId].game.getOutput( );
+            respond( response, 'GameOver\n', input.javascript );
+         } else if ( input.action == 'cancel' ) {
+            endGame( input.gameId );
+            respond( response, 'GameCancelled\n', input.javascript );
+         } else {
+            // do your thang
+            handlePlayer( response, input, games[input.gameId].game );
+         }
+      } else {
+         respond( response, 'BadPassword\n', input.javascript );
+      }
    } else {
-     respond( response, "Dracula Server!\n", input.javascript );
+      respond( response, "Dracula Server!\n", input.javascript );
    }
 } ).listen( port, address );
 

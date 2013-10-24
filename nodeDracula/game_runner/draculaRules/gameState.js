@@ -4,36 +4,36 @@ var Player = function( playCode ) {
    this.playCode = playCode;
    
    if ( playCode === 'G' ) {
-     this.name = "Lord Godalming";
-     this.type = "hunter";
-     this.lifePoints = constants.hunterMaxLifePoints;
+      this.name = "Lord Godalming";
+      this.type = "hunter";
+      this.lifePoints = constants.hunterMaxLifePoints;
    } else if ( playCode === 'S' ) {
-     this.name = "Dr Seward";
-     this.type = "hunter";
-     this.lifePoints = constants.hunterMaxLifePoints;
+      this.name = "Dr Seward";
+      this.type = "hunter";
+      this.lifePoints = constants.hunterMaxLifePoints;
    } else if ( playCode === 'H' ) {
-     this.name = "Van Helsing";
-     this.type = "hunter";
-     this.lifePoints = constants.hunterMaxLifePoints;
+      this.name = "Van Helsing";
+      this.type = "hunter";
+      this.lifePoints = constants.hunterMaxLifePoints;
    } else if ( playCode === 'M' ) {
-     this.name = "Mina Harker";
-     this.type = "hunter";
-     this.lifePoints = constants.hunterMaxLifePoints;
+      this.name = "Mina Harker";
+      this.type = "hunter";
+      this.lifePoints = constants.hunterMaxLifePoints;
    } else if ( playCode === 'D' ) {
-     this.name = "Dracula";
-     this.type = "dracula";
-     this.bloodPoints = constants.draculaStartBloodPoints;
+      this.name = "Dracula";
+      this.type = "dracula";
+      this.bloodPoints = constants.draculaStartBloodPoints;
    } else {
-     assert( "Invalid Play Code in Player" );
+      assert( "Invalid Play Code in Player" );
    }
 };
 
 var State = function( ) {
    this.hunters = [
-     new Player( 'G' ),
-     new Player( 'S' ),
-     new Player( 'H' ),
-     new Player( 'M' )
+      new Player( 'G' ),
+      new Player( 'S' ),
+      new Player( 'H' ),
+      new Player( 'M' )
    ];
    
    this.dracula = new Player( 'D' );
@@ -65,10 +65,10 @@ var State = function( ) {
    // of
    /*
    {
-     trapsEncountered: 0,
-     vampiresEncountered: 0,
-     draculasEncountered: 0,
-     location: 'AB'
+      trapsEncountered: 0,
+      vampiresEncountered: 0,
+      draculasEncountered: 0,
+      location: 'AB'
    }
    */
    

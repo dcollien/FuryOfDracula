@@ -8,8 +8,8 @@ var GameRunner = function( ) {
 GameRunner.super_ = events.EventEmitter;
 GameRunner.prototype = Object.create( events.EventEmitter.prototype, {
    constructor: {
-     value: GameRunner,
-     enumerable: false
+      value: GameRunner,
+      enumerable: false
    }
 } );
 
@@ -41,17 +41,17 @@ GameRunner.prototype.isLegalMove = function( move ) {
 
 GameRunner.prototype.playMove = function( move ) {
    if ( !move ) {
-     // play a default move if one isn't provided
-     this.rules.playDefaultMove( this.state );
+      // play a default move if one isn't provided
+      this.rules.playDefaultMove( this.state );
    } else if ( !this.rules.isLegalMove( this.state, move ) ) {
-     // move is illegal, disqualify player
-     this.isDisqualified[this.playerIndex] = true;
-     this.emit( 'playerDisqualified', this.playerIndex, move );
-     this.rules.playDefaultMove( this.state );
+      // move is illegal, disqualify player
+      this.isDisqualified[this.playerIndex] = true;
+      this.emit( 'playerDisqualified', this.playerIndex, move );
+      this.rules.playDefaultMove( this.state );
    } else {
-     this.rules.playMove( this.state, move );
-     
-     this.emit( 'turnFinished', move, this.playerIndex );
+      this.rules.playMove( this.state, move );
+      
+      this.emit( 'turnFinished', move, this.playerIndex );
    }
    
    
@@ -61,7 +61,7 @@ GameRunner.prototype.playMove = function( move ) {
    
    this.rules.endTurn( this.state );
    if ( this.playerIndex == 0 ) {
-     this.rules.endRound( this.state );
+      this.rules.endRound( this.state );
    }
    
    this.getNextMove( );
@@ -78,13 +78,13 @@ GameRunner.prototype.getPlayerInput = function( ) {
 GameRunner.prototype.getNextMove = function( ) {
    console.log("--------------------------------------------------------------------------");
    if ( this.rules.isGameOver( this.state ) ) {
-     this.emit( 'gameOver' );
+      this.emit( 'gameOver' );
    } else if ( this.isDisqualified[this.playerIndex] ) {
-     console.log("Player is currently disqualified. Making a move on their behalf." + this.playerIndex);
-     this.playMove( );
+      console.log("Player is currently disqualified. Making a move on their behalf." + this.playerIndex);
+      this.playMove( );
    } else {
-     assert( this.playerIndex !== undefined, 'playerIndex is undefined. in getNextMove( )' );
-     this.emit( 'playerTurn', this.playerIndex, this.rules.getPlayerInput( this.state ) );
+      assert( this.playerIndex !== undefined, 'playerIndex is undefined. in getNextMove( )' );
+      this.emit( 'playerTurn', this.playerIndex, this.rules.getPlayerInput( this.state ) );
    }
 };
 
