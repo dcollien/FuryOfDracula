@@ -63,6 +63,9 @@ var isLegalDraculaMove = function( state, move ) {
          // provided the MOVE is not currently in his trail
          // (he is permitted to have more than one teleport move in his trail tho
          // it is unlikely this would occur).
+
+         // It perhaps instead should be (moves rather than locations):
+         // if ( list.contains( movePhaseTrail, move ) ) {
          var trailLocations = gameTrail.getTrailLocations( state, isDraculaMovePhase );
          if ( list.contains( trailLocations, move ) ) {
             isLegal = false;
